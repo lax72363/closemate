@@ -1,0 +1,23 @@
+{
+  "name": "closemate",
+  "version": "0.1.0",
+  "description": "Speed-to-lead AI that texts real estate leads back in under 60 seconds, qualifies them, and hands hot leads to the agent.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "create-agent": "node scripts/create-agent.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0",
+    "better-sqlite3": "^12.11.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "stripe": "^22.3.0",
+    "twilio": "^6.0.2"
+  }
+}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Closemate — Dashboard</title>
+<style>
+  :root { --ink:#141210; --paper:#faf7f2; --accent:#c4552a; --muted:#6f675e; }
+  * { margin:0; box-sizing:border-box; }
+  body { font-family: ui-sans-serif, system-ui, sans-serif; background:var(--paper); color:var(--ink); padding:24px; }
+  h1 { font-family: Georgia, serif; margin-bottom:4px; }
+  .muted { color:var(--muted); font-size:.9rem; }
+  .stats { display:flex; gap:14px; margin:20px 0; flex-wrap:wrap; }
+  .stat { background:#fff; border:1px solid #e4ddd2; border-radius:8px; padding:14px 20px; min-width:150px; }
+  .stat b { display:block; font-size:1.6rem; }
+  .cols { display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
+  @media (max-width:800px){ .cols { grid-template-columns:1fr; } }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid #e4ddd2; border-radius:8px; overflow:hidden; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid #efe9df; font-size:.9rem; }
+  th { background:#f3ede3; }
+  tr.sel { background:#fdf1ea; }
+  tr { cursor:pointer; }
+  .badge { padding:2px 8px; border-radius:99px; font-size:.75rem; background:#eee; }
+  .badge.handoff, .badge.qualified { background:var(--accent); color:#fff; }
+  .badge.engaged { background:#e8d9a8; }
+  #thread { background:#fff; border:1px solid #e4ddd2; border-radius:8px; padding:16px; max-height:70vh; overflow-y:auto; }
+  .msg { max-width:80%; margin:8px 0; padding:8px 12px; border-radius:12px; font-size:.9rem; }
+  .msg.in  { background:#efe9df; }
+  .msg.out { background:var(--ink); color:#fff; margin-left:auto; }
+  code { background:#efe9df; padding:2px 6px; border-radius:4px; font-size:.8rem; word-break:break-all; }
+</style>
+</head>
+<body>
+<h1>closemate</h1>
+<div class="muted" id="who">loading…</div>
+<div class="stats" id="stats"></div>
+<div class="muted" style="margin-bottom:16px">Lead webhook (paste into Zapier/Make): <code id="hook"></code></div>
+<div class="cols">
+  <div>
+    <table>
+      <thead><tr><th>Lead</th><th>Status</th><th>Intent</th><th>Timeline</th><th>Source</th></tr></thead>
+      <tbody id="leads"></tbody>
+    </table>
+  </div>
+  <div id="thread"><div class="muted">Select a lead to view the conversation.</div></div>
+</div>
+<script>
+const token = new URLSearchParams(location.search).get("token");
+const api = (p) => fetch(`/api${p}${p.includes("?") ? "&" : "?"}token=${token}`).then(r => {
+  if (!r.ok) throw new Error("auth");
+  return r.json();
+});
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+async function load() {
+  try {
+    const me = await api("/me");
+    document.getElementById("who").textContent = `${me.name} — ${me.market || "your market"} · plan: ${me.subscription_status}`;
+    document.getElementById("hook").textContent = me.lead_webhook_url;
+    const s = me.stats;
+    const secs = s.avg_first_response_ms ? (s.avg_first_response_ms / 1000).toFixed(1) + "s" : "—";
+    document.getElementById("stats").innerHTML = `
+      <div class="stat"><b>${s.total_leads || 0}</b>leads</div>
+      <div class="stat"><b>${s.hot_leads || 0}</b>hot handoffs</div>
+      <div class="stat"><b>${s.engaged || 0}</b>in conversation</div>
+      <div class="stat"><b>${secs}</b>avg first reply</div>`;
+    const leads = await api("/leads");
+    document.getElementById("leads").innerHTML = leads.map(l => `
+      <tr data-id="${l.id}">
+        <td>${esc(l.name) || esc(l.phone)}</td>
+        <td><span class="badge ${esc(l.status)}">${esc(l.status)}</span></td>
+        <td>${esc(l.intent) || "—"}</td>
+        <td>${esc(l.timeline) || "—"}</td>
+        <td>${esc(l.source)}</td>
+      </tr>`).join("");
+    document.querySelectorAll("#leads tr").forEach(tr => tr.addEventListener("click", () => openThread(tr)));
+  } catch {
+    document.getElementById("who").textContent = "Invalid or missing access link. Check the dashboard URL you were sent.";
+  }
+}
+async function openThread(tr) {
+  document.querySelectorAll("#leads tr").forEach(r => r.classList.remove("sel"));
+  tr.classList.add("sel");
+  const msgs = await api(`/leads/${tr.dataset.id}/messages`);
+  document.getElementById("thread").innerHTML = msgs.length
+    ? msgs.map(m => `<div class="msg ${m.direction}">${esc(m.body)}<div class="muted" style="font-size:.7rem">${esc(m.created_at)}</div></div>`).join("")
+    : '<div class="muted">No messages yet.</div>';
+}
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>
