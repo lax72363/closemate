@@ -1,5 +1,7 @@
 # AI Business Opportunity Research — July 2026
 
+> **⚠️ SUPERSEDED:** The winning recommendation below (insurance supplements) was subsequently red-teamed and **failed** — two fatal defects (Texas Insurance Code Ch. 4102 criminalizing the customer workflow in the largest storm market, and total dependency on Verisk's proprietary price data). See **`RED-TEAM-ANALYSIS.md`** for the attack, the 28-model weighted comparison, and the final recommendation: **AI denial recovery → full billing (RCM) for small specialty practices.** The market research and rankings below remain valid as inputs.
+
 **Objective:** Identify the single business model with the highest probability of reaching $10K/mo → $100K/mo → $1M+/yr, based on live market research (not idea generation).
 
 **Excluded per instructions:** All prior business models — real estate lead generation, AI chatbots for lead capture, and adjacent "AI assistant for realtors" plays.
