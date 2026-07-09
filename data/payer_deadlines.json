@@ -1,0 +1,21 @@
+{
+  "_comment": "Appeal windows in days from the date on the denial/remittance. VERIFY against each payer's provider manual and the plan type - these are defaults for triage, not legal advice. medicare_advantage overrides carrier default for MA plans (CMS rule).",
+  "default_commercial": 180,
+  "medicare_advantage": 60,
+  "medicare_original": 120,
+  "medicaid_default": 90,
+  "payers": {
+    "UNITEDHEALTHCARE": {"appeal_days": 65, "notes": "Shortest major-payer window. UHC commercial ~65 days; UHC MA plans 60 (CMS)."},
+    "UHC": {"appeal_days": 65, "notes": "Alias of UnitedHealthcare."},
+    "OPTUM": {"appeal_days": 65, "notes": "Behavioral carve-out of UHC; confirm plan-level rules."},
+    "AETNA": {"appeal_days": 180, "notes": "Commercial 180; MA 60."},
+    "CIGNA": {"appeal_days": 180, "notes": "Commercial 180; Evernorth behavioral - confirm."},
+    "BCBS": {"appeal_days": 180, "notes": "Varies by state Blue - 90 to 180. Confirm the specific plan."},
+    "BLUE CROSS": {"appeal_days": 180, "notes": "See BCBS."},
+    "HUMANA": {"appeal_days": 180, "notes": "Commercial 180; MA 60."},
+    "MEDICARE": {"appeal_days": 120, "notes": "Redetermination: 120 days from MSN/remittance."},
+    "MAGELLAN": {"appeal_days": 60, "notes": "Behavioral carve-out; windows commonly 60-90. Confirm."},
+    "CARELON": {"appeal_days": 90, "notes": "Behavioral (ex-Beacon); confirm plan-level."},
+    "TRICARE": {"appeal_days": 90, "notes": "Confirm region contractor rules."}
+  }
+}
