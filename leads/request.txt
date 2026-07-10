@@ -1,0 +1,5 @@
+# Lead Finder Bot - edit this file from your phone and save (commit).
+# Format:  STATE,CITY,LIMIT   (city optional: "GA,,150" pulls the whole state)
+# The bot commits a CSV into this folder ~1 minute after you save.
+# Example (remove the # to run):
+# TX,Dallas,100

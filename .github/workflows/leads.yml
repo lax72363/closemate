@@ -1,0 +1,83 @@
+name: Lead Finder Bot
+# Phone workflow: edit leads/request.txt to say e.g.  TX,Dallas,100  (state,city,limit
+# — leave city empty like  GA,,150  for a whole state). Saving the file runs this bot,
+# which pulls behavioral-health organizations from the free CMS NPI registry and commits
+# a CSV into leads/ within ~1 minute.
+
+on:
+  push:
+    paths:
+      - "leads/request.txt"
+  workflow_dispatch:
+    inputs:
+      state:
+        description: "Two-letter state (e.g. TX)"
+        required: true
+      city:
+        description: "City (optional)"
+        required: false
+        default: ""
+      limit:
+        description: "Max leads"
+        required: false
+        default: "100"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lead-bot
+  cancel-in-progress: false
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Work out what was requested
+        id: req
+        run: |
+          if [ -n "${{ github.event.inputs.state }}" ]; then
+            STATE="${{ github.event.inputs.state }}"
+            CITY="${{ github.event.inputs.city }}"
+            LIMIT="${{ github.event.inputs.limit }}"
+          else
+            LINE=$(grep -v '^#' leads/request.txt | grep -m1 . || true)
+            STATE=$(echo "$LINE" | cut -d, -f1 | tr -d ' ')
+            CITY=$(echo "$LINE" | cut -d, -f2 | tr -d ' ')
+            LIMIT=$(echo "$LINE" | cut -d, -f3 | tr -d ' ')
+          fi
+          LIMIT=${LIMIT:-100}
+          if [ -z "$STATE" ]; then echo "no state requested - nothing to do"; exit 0; fi
+          echo "state=$STATE" >> "$GITHUB_OUTPUT"
+          echo "city=$CITY"   >> "$GITHUB_OUTPUT"
+          echo "limit=$LIMIT" >> "$GITHUB_OUTPUT"
+
+      - name: Pull leads from NPI registry
+        if: steps.req.outputs.state != ''
+        run: |
+          STATE="${{ steps.req.outputs.state }}"
+          CITY="${{ steps.req.outputs.city }}"
+          LIMIT="${{ steps.req.outputs.limit }}"
+          OUT="leads/${STATE,,}$( [ -n "$CITY" ] && echo "_${CITY,,}" ).csv"
+          OUT=$(echo "$OUT" | tr ' ' '_')
+          if [ -n "$CITY" ]; then
+            python3 leads/find_leads.py --state "$STATE" --city "$CITY" --limit "$LIMIT" -o "$OUT"
+          else
+            python3 leads/find_leads.py --state "$STATE" --limit "$LIMIT" -o "$OUT"
+          fi
+          echo "OUT=$OUT" >> "$GITHUB_ENV"
+
+      - name: Commit lead list back
+        if: steps.req.outputs.state != ''
+        run: |
+          git config user.name "lead-bot"
+          git config user.email "lead-bot@users.noreply.github.com"
+          git add leads/
+          if git diff --cached --quiet; then
+            echo "no new leads file"
+          else
+            git commit -m "lead-bot: ${OUT} [skip ci]"
+            git push
+          fi
