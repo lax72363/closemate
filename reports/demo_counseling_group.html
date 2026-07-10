@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Denial Audit — Demo Counseling Group</title>
+<style>
+ body { font-family: Georgia, 'Times New Roman', serif; color: #1a2332; max-width: 900px;
+        margin: 40px auto; padding: 0 24px; line-height: 1.5; }
+ h1 { font-size: 26px; margin-bottom: 4px; }
+ h2 { font-size: 18px; margin-top: 36px; border-bottom: 2px solid #1a2332; padding-bottom: 6px; }
+ .sub { color: #5a6572; margin-top: 0; }
+ .headline { background: #f4f6f8; border-left: 5px solid #2456a6; padding: 18px 22px; margin: 28px 0;
+             font-size: 17px; }
+ .headline b { font-size: 24px; color: #2456a6; }
+ table { border-collapse: collapse; width: 100%; font-size: 13px; font-family: Helvetica, Arial, sans-serif; }
+ th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid #dde3ea; vertical-align: top; }
+ th { background: #1a2332; color: #fff; font-weight: 600; }
+ .num { text-align: right; white-space: nowrap; }
+ .dim { color: #6a7683; font-size: 12px; }
+ .urgent { color: #b02a1e; font-weight: 700; }
+ .foot { margin-top: 44px; font-size: 12px; color: #6a7683; border-top: 1px solid #dde3ea; padding-top: 12px; }
+ @media print { body { margin: 12px auto; } }
+</style></head><body>
+<h1>Denial Audit Report</h1>
+<p class="sub">Prepared for <b>Demo Counseling Group</b> · July 10, 2026 · Confidential</p>
+
+<div class="headline">
+ Our analysis of your remittance data found <b>$2,040.00</b> in denied claims that are
+ still appealable, with an estimated <b>$1,127.00</b> realistically recoverable.<br>
+ <span class="dim">13 workable denials · 1 must be appealed within 30 days
+ · 1 past their appeal deadline (excluded from estimates)</span>
+</div>
+
+<h2>Where the money is: root causes to attack first</h2>
+<p>One fix often unlocks an entire group of claims. Ranked by expected recovery:</p>
+<table><tr><th>Payer</th><th>Denial reason</th><th class="num">Claims</th><th class="num">Denied $</th>
+<th class="num">Expected recovery</th><th class="num">Days left</th><th>What gets it paid</th></tr>
+<tr><td>AETNA</td><td><b>CARC B7</b><br><span class='dim'>Provider not certified/eligible to be paid for this service on this date</span></td><td class='num'>4</td><td class='num'>$625.00</td><td class='num'><b>$406.25</b></td><td class='num'>139</td><td>Credentialing/enrollment gap. Fix enrollment or bill under supervising provider per payer rules, then rebill EVERY affected claim - these come in expensive strings.</td></tr><tr><td>BCBS TX</td><td><b>CARC 197</b><br><span class='dim'>Precertification/authorization absent</span></td><td class='num'>2</td><td class='num'>$300.00</td><td class='num'><b>$150.00</b></td><td class='num'>148</td><td>Request retro-authorization where payer allows; appeal with clinical necessity + any auth reference numbers. Often affects a whole string of visits - fix once, rebill all.</td></tr><tr><td>CIGNA</td><td><b>CARC 109</b><br><span class='dim'>Claim not covered by this payer/contractor</span></td><td class='num'>1</td><td class='num'>$180.00</td><td class='num'><b>$126.00</b></td><td class='num'>152</td><td>Identify correct payer (check member ID/plan), submit there. Watch the correct payer&#x27;s timely filing clock!</td></tr><tr><td>UNITEDHEALTHCARE</td><td><b>CARC 16</b><br><span class='dim'>Claim/service lacks information or has submission/billing error</span></td><td class='num'>1</td><td class='num'>$145.00</td><td class='num'><b>$116.00</b></td><td class='num'>45</td><td>Read the RARC for the specific missing element, supply it, resubmit. Usually fast money.</td></tr><tr><td>AETNA</td><td><b>CARC 227</b><br><span class='dim'>Information requested from patient not received</span></td><td class='num'>1</td><td class='num'>$165.00</td><td class='num'><b>$90.75</b></td><td class='num'>159</td><td>Contact patient to complete payer questionnaire (accident/COB forms), then resubmit.</td></tr><tr><td>CIGNA</td><td><b>CARC 151</b><br><span class='dim'>Payment adjusted - frequency/units exceed allowed</span></td><td class='num'>1</td><td class='num'>$165.00</td><td class='num'><b>$74.25</b></td><td class='num'>158</td><td>Appeal with documentation of medical necessity for frequency (common for BH visit limits), or verify units billed correctly.</td></tr><tr><td>BCBS TX</td><td><b>CARC 242</b><br><span class='dim'>Services not provided by network/primary care providers</span></td><td class='num'>1</td><td class='num'>$165.00</td><td class='num'><b>$66.00</b></td><td class='num'>155</td><td>If provider IS in network: appeal with contract/roster evidence (common after payer roster errors). If truly OON, check OON benefits.</td></tr><tr><td>UNITEDHEALTHCARE</td><td><b>CARC 29</b><br><span class='dim'>Time limit for filing has expired</span></td><td class='num'>1</td><td class='num'>$160.00</td><td class='num'><b>$64.00</b></td><td class='num'>35</td><td>Appeal WITH proof of timely original submission (clearinghouse acceptance report). Strong if you have the 999/277 acknowledgment.</td></tr></table>
+
+<h2>Attack-first claim list (top 13)</h2>
+<table><tr><th>Claim</th><th>Payer</th><th>CPT</th><th>DOS</th><th>Denial</th>
+<th class="num">Denied $</th><th class="num">Expected $</th><th>Appeal deadline</th></tr>
+<tr><td>ACG-2008</td><td>CIGNA</td><td>90791</td><td>2026-05-27</td><td><b>109</b> <span class='dim'>wrong_payer</span></td><td class='num'>$180.00</td><td class='num'>$126.00</td><td class=''>152 days</td></tr><tr><td>ACG-2006</td><td>UNITEDHEALTHCARE</td><td>90834</td><td>2026-06-02</td><td><b>16</b> <span class='dim'>missing_info</span></td><td class='num'>$145.00</td><td class='num'>$116.00</td><td class=''>45 days</td></tr><tr><td>ACG-2001</td><td>AETNA</td><td>90837</td><td>2026-05-12</td><td><b>B7</b> <span class='dim'>credentialing</span></td><td class='num'>$165.00</td><td class='num'>$107.25</td><td class=''>139 days</td></tr><tr><td>ACG-2002</td><td>AETNA</td><td>90837</td><td>2026-05-19</td><td><b>B7</b> <span class='dim'>credentialing</span></td><td class='num'>$165.00</td><td class='num'>$107.25</td><td class=''>139 days</td></tr><tr><td>ACG-2004</td><td>AETNA</td><td>90847</td><td>2026-05-20</td><td><b>B7</b> <span class='dim'>credentialing</span></td><td class='num'>$155.00</td><td class='num'>$100.75</td><td class=''>146 days</td></tr><tr><td>ACG-2003</td><td>AETNA</td><td>90834</td><td>2026-05-14</td><td><b>B7</b> <span class='dim'>credentialing</span></td><td class='num'>$140.00</td><td class='num'>$91.00</td><td class=''>139 days</td></tr><tr><td>ACG-2014</td><td>AETNA</td><td>90837</td><td>2026-06-05</td><td><b>227</b> <span class='dim'>missing_info</span></td><td class='num'>$165.00</td><td class='num'>$90.75</td><td class=''>159 days</td></tr><tr><td>ACG-2010</td><td>BCBS TX</td><td>90834</td><td>2026-05-22</td><td><b>197</b> <span class='dim'>authorization</span></td><td class='num'>$150.00</td><td class='num'>$75.00</td><td class=''>148 days</td></tr><tr><td>ACG-2011</td><td>BCBS TX</td><td>90834</td><td>2026-05-29</td><td><b>197</b> <span class='dim'>authorization</span></td><td class='num'>$150.00</td><td class='num'>$75.00</td><td class=''>148 days</td></tr><tr><td>ACG-2009</td><td>CIGNA</td><td>90837</td><td>2026-06-03</td><td><b>151</b> <span class='dim'>frequency</span></td><td class='num'>$165.00</td><td class='num'>$74.25</td><td class=''>158 days</td></tr><tr><td>ACG-2012</td><td>BCBS TX</td><td>90837</td><td>2026-06-01</td><td><b>242</b> <span class='dim'>network</span></td><td class='num'>$165.00</td><td class='num'>$66.00</td><td class=''>155 days</td></tr><tr><td>ACG-2005</td><td>UNITEDHEALTHCARE</td><td>90837</td><td>2026-05-06</td><td><b>29</b> <span class='dim'>timely_filing</span></td><td class='num'>$160.00</td><td class='num'>$64.00</td><td class=''>35 days</td></tr><tr><td>ACG-2013</td><td>MAGELLAN</td><td>90834</td><td>2026-05-18</td><td><b>204</b> <span class='dim'>coverage</span></td><td class='num'>$135.00</td><td class='num'>$33.75</td><td class='urgent'>22 days</td></tr></table>
+
+<h2>What happens next</h2>
+<p>If you'd like these worked: we prepare and submit the appeals (a person reviews every one before it
+goes out), you approve the claim list up front, and <b>all payer payments continue to flow directly to
+your accounts — we never touch your money</b>. Our fee applies only to claims on the approved list that
+actually get paid, verified against your own remittance files. Nothing recovered, nothing owed.</p>
+
+<p class="foot">Estimates are based on denial codes, payer appeal windows, and typical overturn rates for
+each denial category; actual results depend on documentation and payer review. This report is not legal
+or billing advice. Recovery estimates exclude patient-responsibility amounts and expired claims.
+Total denied in file reviewed: $2,200.00 across 14 claims.</p>
+</body></html>
