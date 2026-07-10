@@ -1,0 +1,63 @@
+name: Phone Audit Bot
+# Upload a DE-IDENTIFIED csv/835 into inbox/ from your phone (GitHub app or browser,
+# "Add file" -> "Upload files"). This runs the audit engine and commits the report
+# (markdown + HTML + PDF) into reports/ within ~1 minute.
+#
+# ⚠️ DE-IDENTIFIED FILES ONLY. GitHub is NOT a BAA-covered environment.
+#    No patient names, DOBs, or member IDs may ever enter this repo.
+
+on:
+  push:
+    paths:
+      - "inbox/**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-bot
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run test suite first
+        run: python3 engine/tests.py
+
+      - name: Install PDF renderer
+        run: sudo apt-get update -q && sudo apt-get install -y -q wkhtmltopdf
+
+      - name: Run audits on everything in inbox/
+        run: |
+          mkdir -p reports
+          shopt -s nullglob
+          found=0
+          for f in inbox/*.csv inbox/*.txt inbox/*.835 inbox/*.tsv; do
+            found=1
+            base=$(basename "$f")
+            name="${base%.*}"
+            practice=$(echo "$name" | tr '_-' '  ' | sed 's/\b\(.\)/\u\1/g')
+            echo "=== auditing $f as '$practice' ==="
+            python3 engine/run_audit.py --practice "$practice" "$f" \
+              -o "reports/${name}.html" \
+              --md-out "reports/${name}.md" \
+              --json-out "reports/${name}.json" || echo "FAILED on $f (check format)"
+            wkhtmltopdf --quiet "reports/${name}.html" "reports/${name}.pdf" || true
+          done
+          if [ "$found" = "0" ]; then echo "inbox empty - nothing to do"; fi
+
+      - name: Commit reports back
+        run: |
+          git config user.name "audit-bot"
+          git config user.email "audit-bot@users.noreply.github.com"
+          git add reports/
+          if git diff --cached --quiet; then
+            echo "no new reports"
+          else
+            git commit -m "audit-bot: reports for inbox files [skip ci]"
+            git push
+          fi

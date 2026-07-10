@@ -12,13 +12,14 @@ import sys
 
 from parse_835 import parse_file
 from triage import triage, batches
-from report import build_report
+from report import build_report, build_markdown
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--practice", required=True)
     ap.add_argument("-o", "--out", required=True)
     ap.add_argument("--json-out", default=None, help="also dump triaged claims JSON (working file)")
+    ap.add_argument("--md-out", default=None, help="also write a markdown report (renders on GitHub mobile)")
     ap.add_argument("files", nargs="+")
     args = ap.parse_args()
 
@@ -37,6 +38,10 @@ if __name__ == "__main__":
 
     with open(args.out, "w") as f:
         f.write(build_report(data, args.practice))
+
+    if args.md_out:
+        with open(args.md_out, "w") as f:
+            f.write(build_markdown(data, args.practice))
 
     workable = [c for c in t if c["appealable"] != "no"]
     print(

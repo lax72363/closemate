@@ -3,8 +3,12 @@
 AI-powered denial recovery for behavioral health group practices.
 **"We find money your practice already earned but never collected."**
 
-> Strategy docs: `BUSINESS-OPPORTUNITY-RESEARCH.md` → `RED-TEAM-ANALYSIS.md` →
-> `FOUNDING-PLAN.md` (scale version) → `BOOTSTRAP-PLAN.md` (how we're actually starting).
+> **Start here: `HANDOFF.md`** (full context, one page) · **`PHONE-PLAYBOOK.md`** (current
+> 2-week mobile plan). Strategy: `BUSINESS-OPPORTUNITY-RESEARCH.md` → `RED-TEAM-ANALYSIS.md`
+> → `FOUNDING-PLAN.md` (scale version) → `BOOTSTRAP-PLAN.md` (bootstrap start).
+>
+> 📱 **Run audits from a phone:** upload a de-identified CSV to `inbox/` → report appears
+> in `reports/` (~1 min, via GitHub Actions). See `inbox/README.md`.
 
 ## The Denial Audit Engine (working, day 1)
 

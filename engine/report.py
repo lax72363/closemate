@@ -103,6 +103,55 @@ Total denied in file reviewed: {money(denied_total)} across {len(claims)} claims
 </body></html>"""
 
 
+def build_markdown(data, practice):
+    """Phone-friendly version - renders directly in the GitHub app/browser."""
+    claims = data["claims"]
+    batches = data["batches"]
+    workable = [c for c in claims if c["appealable"] != "no"]
+    expired = [c for c in claims if c["urgency"] == "EXPIRED"]
+    workable_total = sum(c["denied_amount"] for c in workable)
+    expected = sum(c["expected_value"] for c in workable)
+    critical = [c for c in workable if c["urgency"] in ("CRITICAL", "HIGH")]
+
+    lines = [
+        f"# Denial Audit — {practice}",
+        f"*{date.today().strftime('%B %d, %Y')} · Confidential*",
+        "",
+        f"## 💰 {money(workable_total)} in appealable denials — est. {money(expected)} recoverable",
+        f"- {len(workable)} workable denials · **{len(critical)} must be appealed within 30 days**"
+        f" · {len(expired)} expired (excluded)",
+        "",
+        "## Root causes to attack first",
+        "| Payer | Denial | Claims | Denied $ | Expected $ | Days left | Fix |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for b in batches[:8]:
+        dl = b["most_urgent_days_left"]
+        lines.append(
+            f"| {b['payer']} | CARC {b['carc']} — {b['carc_desc'][:60]} | {b['claims']} "
+            f"| {money(b['denied_total'])} | **{money(b['expected_value'])}** "
+            f"| {dl if dl is not None else '—'} | {b['recommended_fix'][:90]} |")
+    lines += [
+        "",
+        "## Attack-first claims",
+        "| Claim | Payer | CARC | Denied $ | Expected $ | Deadline |",
+        "|---|---|---|---|---|---|",
+    ]
+    for c in workable[:15]:
+        dl = c["days_left_to_appeal"]
+        urgent = " ⚠️" if c["urgency"] in ("CRITICAL", "HIGH") else ""
+        lines.append(
+            f"| {c['claim_id']} | {c['payer']} | {c['carc']} | {money(c['denied_amount'])} "
+            f"| {money(c['expected_value'])} | {dl if dl is not None else '?'}d{urgent} |")
+    lines += [
+        "",
+        "---",
+        "*Fee applies only to approved-inventory claims verified as paid in your own remittance "
+        "files. All payer payments flow directly to your accounts. Estimates are estimates.*",
+    ]
+    return "\n".join(lines) + "\n"
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--practice", default="Your Practice")
