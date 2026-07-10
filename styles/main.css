@@ -1,0 +1,64 @@
+/* Wobbleton chrome. The world lives on canvas; this is HUD/boot styling. */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: #14121f;
+  overflow: hidden;
+  font-family: "Comic Sans MS", "Chalkboard SE", "Segoe Print", cursive, sans-serif;
+  color: #fff;
+}
+
+#stage { position: relative; width: 100%; height: 100%; }
+
+#game {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  image-rendering: auto;
+}
+
+#boot {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px;
+  background:
+    radial-gradient(1200px 700px at 50% 30%, #2c2650 0%, #14121f 70%);
+  text-align: center;
+  z-index: 10;
+  padding: 24px;
+}
+
+#boot h1 {
+  font-size: clamp(48px, 9vw, 110px);
+  letter-spacing: 4px;
+  color: #ffd94a;
+  text-shadow:
+    4px 4px 0 #e2532f,
+    8px 8px 0 #22203a,
+    0 0 40px rgba(255, 217, 74, .35);
+  transform: rotate(-2deg);
+}
+
+#boot .tagline { font-size: clamp(16px, 2.4vw, 26px); color: #9fe8ff; }
+#boot .controls { color: #cfc9ee; line-height: 1.7; font-size: 15px; }
+#boot .fine { font-size: 12px; color: #7a7595; }
+
+#startBtn {
+  font-family: inherit;
+  font-size: 24px;
+  padding: 14px 44px;
+  border: 4px solid #22203a;
+  border-radius: 18px;
+  background: #6ee76e;
+  color: #14301b;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #2c8f3c;
+  transform: rotate(1deg);
+  transition: transform .08s ease;
+}
+#startBtn:hover { transform: rotate(-1deg) scale(1.06); }
+#startBtn:active { transform: translateY(4px); box-shadow: 0 2px 0 #2c8f3c; }
+
+#boot.hidden { display: none; }
