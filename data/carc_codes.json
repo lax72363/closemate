@@ -1,28 +1,398 @@
 {
   "_comment": "Claim Adjustment Reason Codes (CARC) knowledge base. appealable: yes/maybe/no. win_prob: rough probability an appeal/fix recovers the money when worked properly. fix: what actually gets it paid. batch: whether one root-cause fix typically unlocks many claims at once.",
-  "1": {"desc": "Deductible amount", "group_hint": "PR", "category": "patient_responsibility", "appealable": "no", "win_prob": 0.0, "fix": "Patient responsibility - not a payer denial. Out of scope (no patient collections).", "batch": false},
-  "2": {"desc": "Coinsurance amount", "group_hint": "PR", "category": "patient_responsibility", "appealable": "no", "win_prob": 0.0, "fix": "Patient responsibility. Out of scope.", "batch": false},
-  "3": {"desc": "Co-payment amount", "group_hint": "PR", "category": "patient_responsibility", "appealable": "no", "win_prob": 0.0, "fix": "Patient responsibility. Out of scope.", "batch": false},
-  "4": {"desc": "Procedure code inconsistent with modifier used", "category": "coding_error", "appealable": "yes", "win_prob": 0.75, "fix": "Correct the modifier and resubmit as corrected claim.", "batch": true},
-  "11": {"desc": "Diagnosis inconsistent with procedure", "category": "coding_error", "appealable": "yes", "win_prob": 0.7, "fix": "Verify dx/CPT pairing, correct and resubmit.", "batch": true},
-  "16": {"desc": "Claim/service lacks information or has submission/billing error", "category": "missing_info", "appealable": "yes", "win_prob": 0.8, "fix": "Read the RARC for the specific missing element, supply it, resubmit. Usually fast money.", "batch": true},
-  "18": {"desc": "Exact duplicate claim/service", "category": "duplicate", "appealable": "maybe", "win_prob": 0.15, "fix": "Usually a true duplicate. Only appeal if it was NOT a duplicate (e.g., two same-day sessions with modifier 76/59 missing).", "batch": false},
-  "22": {"desc": "Care may be covered by another payer per coordination of benefits", "category": "cob", "appealable": "yes", "win_prob": 0.6, "fix": "Patient's COB info is stale with the payer. Have patient update COB or submit primary EOB, then resubmit.", "batch": true},
-  "27": {"desc": "Expenses incurred after coverage terminated", "category": "eligibility", "appealable": "maybe", "win_prob": 0.3, "fix": "Verify eligibility for DOS. If coverage was active, appeal with eligibility evidence. Else bill correct payer.", "batch": true},
-  "29": {"desc": "Time limit for filing has expired", "category": "timely_filing", "appealable": "maybe", "win_prob": 0.4, "fix": "Appeal WITH proof of timely original submission (clearinghouse acceptance report). Strong if you have the 999/277 acknowledgment.", "batch": true},
-  "45": {"desc": "Charge exceeds fee schedule/contracted rate (contractual adjustment)", "category": "contractual", "appealable": "maybe", "win_prob": 0.2, "fix": "Normally a write-off, BUT compare paid rate vs contract - this code hides underpayments. Flag for underpayment audit.", "batch": true},
-  "50": {"desc": "Not medically necessary per payer", "category": "medical_necessity", "appealable": "yes", "win_prob": 0.55, "fix": "Appeal with clinical documentation: treatment plan, progress notes, medical necessity letter. High value in behavioral health.", "batch": false},
-  "96": {"desc": "Non-covered charge(s)", "category": "coverage", "appealable": "maybe", "win_prob": 0.35, "fix": "Check plan benefits & RARC. If service IS covered (common payer error on BH telehealth), appeal with plan language.", "batch": true},
-  "97": {"desc": "Payment included in allowance for another service (bundled)", "category": "bundling", "appealable": "yes", "win_prob": 0.5, "fix": "If separately payable, appeal with correct modifier (59/25) and documentation of distinct service.", "batch": true},
-  "109": {"desc": "Claim not covered by this payer/contractor", "category": "wrong_payer", "appealable": "yes", "win_prob": 0.7, "fix": "Identify correct payer (check member ID/plan), submit there. Watch the correct payer's timely filing clock!", "batch": true},
-  "151": {"desc": "Payment adjusted - frequency/units exceed allowed", "category": "frequency", "appealable": "yes", "win_prob": 0.45, "fix": "Appeal with documentation of medical necessity for frequency (common for BH visit limits), or verify units billed correctly.", "batch": true},
-  "197": {"desc": "Precertification/authorization absent", "category": "authorization", "appealable": "yes", "win_prob": 0.5, "fix": "Request retro-authorization where payer allows; appeal with clinical necessity + any auth reference numbers. Often affects a whole string of visits - fix once, rebill all.", "batch": true},
-  "198": {"desc": "Precertification/authorization exceeded", "category": "authorization", "appealable": "yes", "win_prob": 0.5, "fix": "Obtain additional units authorization; appeal affected visits with clinical justification.", "batch": true},
-  "204": {"desc": "Service not covered under current benefit plan", "category": "coverage", "appealable": "maybe", "win_prob": 0.25, "fix": "Verify against actual plan documents; payers misapply this to telehealth/BH parity. Appeal citing parity laws where applicable.", "batch": true},
-  "226": {"desc": "Information requested from billing provider not received", "category": "missing_info", "appealable": "yes", "win_prob": 0.75, "fix": "Send the requested records ASAP - this is money waiting on paperwork.", "batch": true},
-  "227": {"desc": "Information requested from patient not received", "category": "missing_info", "appealable": "yes", "win_prob": 0.55, "fix": "Contact patient to complete payer questionnaire (accident/COB forms), then resubmit.", "batch": true},
-  "242": {"desc": "Services not provided by network/primary care providers", "category": "network", "appealable": "maybe", "win_prob": 0.4, "fix": "If provider IS in network: appeal with contract/roster evidence (common after payer roster errors). If truly OON, check OON benefits.", "batch": true},
-  "252": {"desc": "Attachment/documentation required to adjudicate", "category": "missing_info", "appealable": "yes", "win_prob": 0.8, "fix": "Submit the requested documentation. Fastest recoveries in the book.", "batch": true},
-  "B7": {"desc": "Provider not certified/eligible to be paid for this service on this date", "category": "credentialing", "appealable": "yes", "win_prob": 0.65, "fix": "Credentialing/enrollment gap. Fix enrollment or bill under supervising provider per payer rules, then rebill EVERY affected claim - these come in expensive strings.", "batch": true},
-  "A1": {"desc": "Claim/service denied (see RARC for detail)", "category": "generic_denial", "appealable": "maybe", "win_prob": 0.4, "fix": "Meaningless alone - the RARC carries the real reason. Classify by RARC.", "batch": false}
+  "1": {
+    "desc": "Deductible amount",
+    "group_hint": "PR",
+    "category": "patient_responsibility",
+    "appealable": "no",
+    "win_prob": 0.0,
+    "fix": "Patient responsibility - not a payer denial. Out of scope (no patient collections).",
+    "batch": false
+  },
+  "2": {
+    "desc": "Coinsurance amount",
+    "group_hint": "PR",
+    "category": "patient_responsibility",
+    "appealable": "no",
+    "win_prob": 0.0,
+    "fix": "Patient responsibility. Out of scope.",
+    "batch": false
+  },
+  "3": {
+    "desc": "Co-payment amount",
+    "group_hint": "PR",
+    "category": "patient_responsibility",
+    "appealable": "no",
+    "win_prob": 0.0,
+    "fix": "Patient responsibility. Out of scope.",
+    "batch": false
+  },
+  "4": {
+    "desc": "Procedure code inconsistent with modifier used",
+    "category": "coding_error",
+    "appealable": "yes",
+    "win_prob": 0.75,
+    "fix": "Correct the modifier and resubmit as corrected claim.",
+    "batch": true
+  },
+  "11": {
+    "desc": "Diagnosis inconsistent with procedure",
+    "category": "coding_error",
+    "appealable": "yes",
+    "win_prob": 0.7,
+    "fix": "Verify dx/CPT pairing, correct and resubmit.",
+    "batch": true
+  },
+  "16": {
+    "desc": "Claim/service lacks information or has submission/billing error",
+    "category": "missing_info",
+    "appealable": "yes",
+    "win_prob": 0.8,
+    "fix": "Read the RARC for the specific missing element, supply it, resubmit. Usually fast money.",
+    "batch": true
+  },
+  "18": {
+    "desc": "Exact duplicate claim/service",
+    "category": "duplicate",
+    "appealable": "maybe",
+    "win_prob": 0.15,
+    "fix": "Usually a true duplicate. Only appeal if it was NOT a duplicate (e.g., two same-day sessions with modifier 76/59 missing).",
+    "batch": false
+  },
+  "22": {
+    "desc": "Care may be covered by another payer per coordination of benefits",
+    "category": "cob",
+    "appealable": "yes",
+    "win_prob": 0.6,
+    "fix": "Patient's COB info is stale with the payer. Have patient update COB or submit primary EOB, then resubmit.",
+    "batch": true
+  },
+  "27": {
+    "desc": "Expenses incurred after coverage terminated",
+    "category": "eligibility",
+    "appealable": "maybe",
+    "win_prob": 0.3,
+    "fix": "Verify eligibility for DOS. If coverage was active, appeal with eligibility evidence. Else bill correct payer.",
+    "batch": true
+  },
+  "29": {
+    "desc": "Time limit for filing has expired",
+    "category": "timely_filing",
+    "appealable": "maybe",
+    "win_prob": 0.4,
+    "fix": "Appeal WITH proof of timely original submission (clearinghouse acceptance report). Strong if you have the 999/277 acknowledgment.",
+    "batch": true
+  },
+  "45": {
+    "desc": "Charge exceeds fee schedule/contracted rate (contractual adjustment)",
+    "category": "contractual",
+    "appealable": "maybe",
+    "win_prob": 0.2,
+    "fix": "Normally a write-off, BUT compare paid rate vs contract - this code hides underpayments. Flag for underpayment audit.",
+    "batch": true
+  },
+  "50": {
+    "desc": "Not medically necessary per payer",
+    "category": "medical_necessity",
+    "appealable": "yes",
+    "win_prob": 0.55,
+    "fix": "Appeal with clinical documentation: treatment plan, progress notes, medical necessity letter. High value in behavioral health.",
+    "batch": false
+  },
+  "96": {
+    "desc": "Non-covered charge(s)",
+    "category": "coverage",
+    "appealable": "maybe",
+    "win_prob": 0.35,
+    "fix": "Check plan benefits & RARC. If service IS covered (common payer error on BH telehealth), appeal with plan language.",
+    "batch": true
+  },
+  "97": {
+    "desc": "Payment included in allowance for another service (bundled)",
+    "category": "bundling",
+    "appealable": "yes",
+    "win_prob": 0.5,
+    "fix": "If separately payable, appeal with correct modifier (59/25) and documentation of distinct service.",
+    "batch": true
+  },
+  "109": {
+    "desc": "Claim not covered by this payer/contractor",
+    "category": "wrong_payer",
+    "appealable": "yes",
+    "win_prob": 0.7,
+    "fix": "Identify correct payer (check member ID/plan), submit there. Watch the correct payer's timely filing clock!",
+    "batch": true
+  },
+  "151": {
+    "desc": "Payment adjusted - frequency/units exceed allowed",
+    "category": "frequency",
+    "appealable": "yes",
+    "win_prob": 0.45,
+    "fix": "Appeal with documentation of medical necessity for frequency (common for BH visit limits), or verify units billed correctly.",
+    "batch": true
+  },
+  "197": {
+    "desc": "Precertification/authorization absent",
+    "category": "authorization",
+    "appealable": "yes",
+    "win_prob": 0.5,
+    "fix": "Request retro-authorization where payer allows; appeal with clinical necessity + any auth reference numbers. Often affects a whole string of visits - fix once, rebill all.",
+    "batch": true
+  },
+  "198": {
+    "desc": "Precertification/authorization exceeded",
+    "category": "authorization",
+    "appealable": "yes",
+    "win_prob": 0.5,
+    "fix": "Obtain additional units authorization; appeal affected visits with clinical justification.",
+    "batch": true
+  },
+  "204": {
+    "desc": "Service not covered under current benefit plan",
+    "category": "coverage",
+    "appealable": "maybe",
+    "win_prob": 0.25,
+    "fix": "Verify against actual plan documents; payers misapply this to telehealth/BH parity. Appeal citing parity laws where applicable.",
+    "batch": true
+  },
+  "226": {
+    "desc": "Information requested from billing provider not received",
+    "category": "missing_info",
+    "appealable": "yes",
+    "win_prob": 0.75,
+    "fix": "Send the requested records ASAP - this is money waiting on paperwork.",
+    "batch": true
+  },
+  "227": {
+    "desc": "Information requested from patient not received",
+    "category": "missing_info",
+    "appealable": "yes",
+    "win_prob": 0.55,
+    "fix": "Contact patient to complete payer questionnaire (accident/COB forms), then resubmit.",
+    "batch": true
+  },
+  "242": {
+    "desc": "Services not provided by network/primary care providers",
+    "category": "network",
+    "appealable": "maybe",
+    "win_prob": 0.4,
+    "fix": "If provider IS in network: appeal with contract/roster evidence (common after payer roster errors). If truly OON, check OON benefits.",
+    "batch": true
+  },
+  "252": {
+    "desc": "Attachment/documentation required to adjudicate",
+    "category": "missing_info",
+    "appealable": "yes",
+    "win_prob": 0.8,
+    "fix": "Submit the requested documentation. Fastest recoveries in the book.",
+    "batch": true
+  },
+  "B7": {
+    "desc": "Provider not certified/eligible to be paid for this service on this date",
+    "category": "credentialing",
+    "appealable": "yes",
+    "win_prob": 0.65,
+    "fix": "Credentialing/enrollment gap. Fix enrollment or bill under supervising provider per payer rules, then rebill EVERY affected claim - these come in expensive strings.",
+    "batch": true
+  },
+  "A1": {
+    "desc": "Claim/service denied (see RARC for detail)",
+    "category": "generic_denial",
+    "appealable": "maybe",
+    "win_prob": 0.4,
+    "fix": "Meaningless alone - the RARC carries the real reason. Classify by RARC.",
+    "batch": false
+  },
+  "8": {
+    "desc": "Procedure code inconsistent with provider type/specialty",
+    "category": "credentialing",
+    "appealable": "yes",
+    "win_prob": 0.55,
+    "fix": "Verify taxonomy/specialty on file with payer matches service; correct payer's provider record or bill under correctly-typed provider, then rebill.",
+    "batch": true
+  },
+  "15": {
+    "desc": "Authorization missing/invalid for service",
+    "category": "authorization",
+    "appealable": "yes",
+    "win_prob": 0.5,
+    "fix": "Locate or obtain valid auth; if auth existed, cite reference number and request reprocessing.",
+    "batch": true
+  },
+  "23": {
+    "desc": "Impact of prior payer(s) adjudication (OA-23)",
+    "category": "cob",
+    "appealable": "no",
+    "win_prob": 0.0,
+    "fix": "Informational when secondary. Not a denial by itself.",
+    "batch": false
+  },
+  "24": {
+    "desc": "Charges covered under capitation/managed care agreement",
+    "category": "contractual",
+    "appealable": "no",
+    "win_prob": 0.05,
+    "fix": "Usually contractual. Verify the patient is actually attributed to a capitated arrangement.",
+    "batch": false
+  },
+  "26": {
+    "desc": "Expenses incurred prior to coverage effective date",
+    "category": "eligibility",
+    "appealable": "maybe",
+    "win_prob": 0.3,
+    "fix": "Verify effective date; if coverage was active on DOS, appeal with eligibility evidence; else bill prior payer.",
+    "batch": true
+  },
+  "31": {
+    "desc": "Patient cannot be identified as our insured",
+    "category": "eligibility",
+    "appealable": "yes",
+    "win_prob": 0.65,
+    "fix": "Almost always a member-ID/name/DOB typo. Correct demographics and resubmit.",
+    "batch": true
+  },
+  "39": {
+    "desc": "Services denied at the time authorization was requested",
+    "category": "authorization",
+    "appealable": "maybe",
+    "win_prob": 0.35,
+    "fix": "Appeal the underlying auth denial with clinical documentation; escalate to peer review if offered.",
+    "batch": false
+  },
+  "55": {
+    "desc": "Procedure deemed experimental/investigational",
+    "category": "medical_necessity",
+    "appealable": "maybe",
+    "win_prob": 0.35,
+    "fix": "Appeal with evidence basis and payer's own coverage policy; rare in routine BH but appears on newer CPT codes.",
+    "batch": false
+  },
+  "58": {
+    "desc": "Treatment rendered in inappropriate/invalid place of service",
+    "category": "coding_error",
+    "appealable": "yes",
+    "win_prob": 0.7,
+    "fix": "POS error - EXTREMELY common on telehealth (POS 02/10 + modifier 95 mismatches). Correct POS/modifier and resubmit.",
+    "batch": true
+  },
+  "59": {
+    "desc": "Processed based on multiple/concurrent procedure rules",
+    "category": "bundling",
+    "appealable": "maybe",
+    "win_prob": 0.4,
+    "fix": "Verify multiple-procedure logic applied correctly; appeal with documentation of distinct services.",
+    "batch": true
+  },
+  "95": {
+    "desc": "Plan procedures not followed",
+    "category": "authorization",
+    "appealable": "maybe",
+    "win_prob": 0.35,
+    "fix": "Identify which procedure (referral? auth? notification?) and cure it; appeal with good-cause argument.",
+    "batch": true
+  },
+  "107": {
+    "desc": "Related/qualifying claim/service not identified on claim",
+    "category": "coding_error",
+    "appealable": "yes",
+    "win_prob": 0.45,
+    "fix": "Add the required linked service/reference and resubmit.",
+    "batch": true
+  },
+  "119": {
+    "desc": "Benefit maximum reached for this period",
+    "category": "frequency",
+    "appealable": "maybe",
+    "win_prob": 0.25,
+    "fix": "Verify counter is correct (payers miscount!). If BH limits are stricter than medical, raise parity (MHPAEA).",
+    "batch": true
+  },
+  "125": {
+    "desc": "Submission/billing error",
+    "category": "missing_info",
+    "appealable": "yes",
+    "win_prob": 0.7,
+    "fix": "Read RARC for the specific error, correct, resubmit.",
+    "batch": true
+  },
+  "146": {
+    "desc": "Diagnosis invalid for date(s) of service",
+    "category": "coding_error",
+    "appealable": "yes",
+    "win_prob": 0.7,
+    "fix": "ICD-10 code retired/changed - map to valid code for DOS and resubmit.",
+    "batch": true
+  },
+  "150": {
+    "desc": "Payer: information submitted does not support this level of service",
+    "category": "medical_necessity",
+    "appealable": "yes",
+    "win_prob": 0.5,
+    "fix": "Appeal with full session documentation supporting the code billed (e.g., 90837 vs 90834 time documentation).",
+    "batch": false
+  },
+  "167": {
+    "desc": "Diagnosis not covered",
+    "category": "coverage",
+    "appealable": "maybe",
+    "win_prob": 0.35,
+    "fix": "Verify dx coding is the most accurate; appeal citing covered-condition list and parity where applicable.",
+    "batch": true
+  },
+  "170": {
+    "desc": "Payment denied for this provider type",
+    "category": "credentialing",
+    "appealable": "yes",
+    "win_prob": 0.5,
+    "fix": "Payer's provider-type rules vs your clinician's license (common for LPC/LMFT/associate levels). Verify contract covers the license level; bill under supervisor per payer policy if allowed.",
+    "batch": true
+  },
+  "181": {
+    "desc": "Procedure code invalid on date of service",
+    "category": "coding_error",
+    "appealable": "yes",
+    "win_prob": 0.7,
+    "fix": "CPT retired/typo - correct and resubmit.",
+    "batch": true
+  },
+  "182": {
+    "desc": "Modifier invalid on date of service",
+    "category": "coding_error",
+    "appealable": "yes",
+    "win_prob": 0.75,
+    "fix": "Correct modifier and resubmit.",
+    "batch": true
+  },
+  "222": {
+    "desc": "Exceeds maximum hours/units per period",
+    "category": "frequency",
+    "appealable": "maybe",
+    "win_prob": 0.4,
+    "fix": "Verify units; appeal with medical-necessity + parity argument for BH visit limits.",
+    "batch": true
+  },
+  "236": {
+    "desc": "Procedure/modifier combination not compatible",
+    "category": "coding_error",
+    "appealable": "yes",
+    "win_prob": 0.7,
+    "fix": "Fix the combo per NCCI edits and resubmit.",
+    "batch": true
+  },
+  "243": {
+    "desc": "Services not authorized by network/primary care providers",
+    "category": "authorization",
+    "appealable": "maybe",
+    "win_prob": 0.45,
+    "fix": "Obtain/document referral; appeal citing no-referral-required benefit design where true (many PPO BH benefits).",
+    "batch": true
+  },
+  "288": {
+    "desc": "Referral absent",
+    "category": "authorization",
+    "appealable": "maybe",
+    "win_prob": 0.5,
+    "fix": "Cure the referral or appeal citing plan design (PPOs often need none for BH).",
+    "batch": true
+  }
 }

@@ -69,7 +69,7 @@ RE: Appeal of claim denial
    Claim #: {claim_id}   Payer claim #: {payer_claim_number}
    Date of service: {service_date}   CPT: {cpt}
    Billed: ${charged:.2f}   Denied: ${denied_amount:.2f}
-   Denial reason: CARC {carc} — {carc_desc}
+   Denial reason: CARC {carc} — {carc_desc}{remark_block}
 
 To the Appeals Department:
 
@@ -108,7 +108,13 @@ def offline_letter(claim, practice):
         "cob": "primary payer EOB or updated COB attestation",
     }.get(claim["category"], "supporting clinical/billing documentation")
 
+    remarks = claim.get("remark_notes") or claim.get("remark_codes") or []
+    remark_block = ""
+    if remarks:
+        remark_block = "\n   Remark codes: " + "; ".join(str(r) for r in remarks)
+
     return TEMPLATE.format(
+        remark_block=remark_block,
         today=date.today().strftime("%B %d, %Y"),
         argument=textwrap.fill(arg, 96),
         enclosures=checklist,

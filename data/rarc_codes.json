@@ -1,0 +1,15 @@
+{
+  "_comment": "Remittance Advice Remark Codes (RARC) - the payer's specific reason. Grows with every EOB we see.",
+  "N290": "Missing/incomplete/invalid rendering provider identifier - fix rendering NPI and resubmit",
+  "N30": "Patient ineligible for this service - verify eligibility/benefit for DOS",
+  "M76": "Missing/incomplete/invalid diagnosis - correct ICD-10 and resubmit",
+  "M127": "Missing patient medical record for this service - send records (fast money)",
+  "N179": "Additional information requested from member - patient must respond to payer; follow up with patient",
+  "N479": "Missing Explanation of Benefits (primary payer EOB) - attach primary EOB, resubmit",
+  "N522": "Duplicate of a claim processed/adjudicated - verify true duplicate before writing off",
+  "N56": "Procedure code billed is not correct/valid for the services billed - recode",
+  "M20": "Missing/incomplete/invalid HCPCS - correct code",
+  "N115": "Decision based on Local Coverage Determination (LCD) - review LCD, appeal with criteria met",
+  "N54": "Claim information inconsistent with pre-certified/authorized services - match claim to auth details",
+  "M62": "Missing/incomplete/invalid treatment authorization code - add auth number, resubmit"
+}

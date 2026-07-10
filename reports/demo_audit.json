@@ -13,6 +13,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-12",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -22,6 +24,7 @@
       ],
       "carc": "109",
       "carc_desc": "Claim not covered by this payer/contractor",
+      "remark_notes": [],
       "category": "wrong_payer",
       "appealable": "yes",
       "win_prob": 0.7,
@@ -30,7 +33,7 @@
       "denied_amount": 180.0,
       "appeal_window_days": 180,
       "appeal_window_source": "CIGNA",
-      "days_left_to_appeal": 153,
+      "days_left_to_appeal": 152,
       "urgency": "NORMAL",
       "expected_value": 126.0
     },
@@ -47,6 +50,7 @@
       "cpt": "90834",
       "service_date": "2026-05-28",
       "denial_date": "2026-06-15",
+      "reversal": false,
       "adjustments": [
         {
           "group": "CO",
@@ -54,8 +58,10 @@
           "amount": 145.0
         }
       ],
+      "remark_codes": [],
       "carc": "252",
       "carc_desc": "Attachment/documentation required to adjudicate",
+      "remark_notes": [],
       "category": "missing_info",
       "appealable": "yes",
       "win_prob": 0.8,
@@ -64,7 +70,7 @@
       "denied_amount": 145.0,
       "appeal_window_days": 65,
       "appeal_window_source": "OPTUM",
-      "days_left_to_appeal": 41,
+      "days_left_to_appeal": 40,
       "urgency": "NORMAL",
       "expected_value": 116.0
     },
@@ -81,6 +87,7 @@
       "cpt": "90834",
       "service_date": "2026-04-15",
       "denial_date": "2026-06-15",
+      "reversal": false,
       "adjustments": [
         {
           "group": "CO",
@@ -88,8 +95,10 @@
           "amount": 145.0
         }
       ],
+      "remark_codes": [],
       "carc": "16",
       "carc_desc": "Claim/service lacks information or has submission/billing error",
+      "remark_notes": [],
       "category": "missing_info",
       "appealable": "yes",
       "win_prob": 0.8,
@@ -98,7 +107,7 @@
       "denied_amount": 145.0,
       "appeal_window_days": 65,
       "appeal_window_source": "OPTUM",
-      "days_left_to_appeal": 41,
+      "days_left_to_appeal": 40,
       "urgency": "NORMAL",
       "expected_value": 116.0
     },
@@ -115,6 +124,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-20",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -124,6 +135,7 @@
       ],
       "carc": "16",
       "carc_desc": "Claim/service lacks information or has submission/billing error",
+      "remark_notes": [],
       "category": "missing_info",
       "appealable": "yes",
       "win_prob": 0.8,
@@ -132,7 +144,7 @@
       "denied_amount": 145.0,
       "appeal_window_days": 65,
       "appeal_window_source": "UNITEDHEALTHCARE",
-      "days_left_to_appeal": 46,
+      "days_left_to_appeal": 45,
       "urgency": "NORMAL",
       "expected_value": 116.0
     },
@@ -149,6 +161,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-05-30",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -158,6 +172,7 @@
       ],
       "carc": "B7",
       "carc_desc": "Provider not certified/eligible to be paid for this service on this date",
+      "remark_notes": [],
       "category": "credentialing",
       "appealable": "yes",
       "win_prob": 0.65,
@@ -166,7 +181,7 @@
       "denied_amount": 165.0,
       "appeal_window_days": 180,
       "appeal_window_source": "AETNA",
-      "days_left_to_appeal": 140,
+      "days_left_to_appeal": 139,
       "urgency": "NORMAL",
       "expected_value": 107.25
     },
@@ -183,6 +198,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-05-30",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -192,6 +209,7 @@
       ],
       "carc": "B7",
       "carc_desc": "Provider not certified/eligible to be paid for this service on this date",
+      "remark_notes": [],
       "category": "credentialing",
       "appealable": "yes",
       "win_prob": 0.65,
@@ -200,7 +218,7 @@
       "denied_amount": 165.0,
       "appeal_window_days": 180,
       "appeal_window_source": "AETNA",
-      "days_left_to_appeal": 140,
+      "days_left_to_appeal": 139,
       "urgency": "NORMAL",
       "expected_value": 107.25
     },
@@ -217,6 +235,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-06",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -226,6 +246,7 @@
       ],
       "carc": "B7",
       "carc_desc": "Provider not certified/eligible to be paid for this service on this date",
+      "remark_notes": [],
       "category": "credentialing",
       "appealable": "yes",
       "win_prob": 0.65,
@@ -234,7 +255,7 @@
       "denied_amount": 155.0,
       "appeal_window_days": 180,
       "appeal_window_source": "AETNA",
-      "days_left_to_appeal": 147,
+      "days_left_to_appeal": 146,
       "urgency": "NORMAL",
       "expected_value": 100.75
     },
@@ -251,6 +272,7 @@
       "cpt": "90791",
       "service_date": "2026-06-01",
       "denial_date": "2026-06-15",
+      "reversal": false,
       "adjustments": [
         {
           "group": "CO",
@@ -258,8 +280,10 @@
           "amount": 175.0
         }
       ],
+      "remark_codes": [],
       "carc": "50",
       "carc_desc": "Not medically necessary per payer",
+      "remark_notes": [],
       "category": "medical_necessity",
       "appealable": "yes",
       "win_prob": 0.55,
@@ -268,7 +292,7 @@
       "denied_amount": 175.0,
       "appeal_window_days": 65,
       "appeal_window_source": "OPTUM",
-      "days_left_to_appeal": 41,
+      "days_left_to_appeal": 40,
       "urgency": "NORMAL",
       "expected_value": 96.25
     },
@@ -285,6 +309,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-05-30",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -294,6 +320,7 @@
       ],
       "carc": "B7",
       "carc_desc": "Provider not certified/eligible to be paid for this service on this date",
+      "remark_notes": [],
       "category": "credentialing",
       "appealable": "yes",
       "win_prob": 0.65,
@@ -302,7 +329,7 @@
       "denied_amount": 140.0,
       "appeal_window_days": 180,
       "appeal_window_source": "AETNA",
-      "days_left_to_appeal": 140,
+      "days_left_to_appeal": 139,
       "urgency": "NORMAL",
       "expected_value": 91.0
     },
@@ -319,6 +346,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-19",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -328,6 +357,7 @@
       ],
       "carc": "227",
       "carc_desc": "Information requested from patient not received",
+      "remark_notes": [],
       "category": "missing_info",
       "appealable": "yes",
       "win_prob": 0.55,
@@ -336,7 +366,7 @@
       "denied_amount": 165.0,
       "appeal_window_days": 180,
       "appeal_window_source": "AETNA",
-      "days_left_to_appeal": 160,
+      "days_left_to_appeal": 159,
       "urgency": "NORMAL",
       "expected_value": 90.75
     },
@@ -353,6 +383,7 @@
       "cpt": "90837",
       "service_date": "2026-05-20",
       "denial_date": "2026-06-15",
+      "reversal": false,
       "adjustments": [
         {
           "group": "CO",
@@ -360,8 +391,10 @@
           "amount": 160.0
         }
       ],
+      "remark_codes": [],
       "carc": "197",
       "carc_desc": "Precertification/authorization absent",
+      "remark_notes": [],
       "category": "authorization",
       "appealable": "yes",
       "win_prob": 0.5,
@@ -370,7 +403,7 @@
       "denied_amount": 160.0,
       "appeal_window_days": 65,
       "appeal_window_source": "OPTUM",
-      "days_left_to_appeal": 41,
+      "days_left_to_appeal": 40,
       "urgency": "NORMAL",
       "expected_value": 80.0
     },
@@ -387,6 +420,7 @@
       "cpt": "90837",
       "service_date": "2026-05-27",
       "denial_date": "2026-06-15",
+      "reversal": false,
       "adjustments": [
         {
           "group": "CO",
@@ -394,8 +428,10 @@
           "amount": 160.0
         }
       ],
+      "remark_codes": [],
       "carc": "197",
       "carc_desc": "Precertification/authorization absent",
+      "remark_notes": [],
       "category": "authorization",
       "appealable": "yes",
       "win_prob": 0.5,
@@ -404,7 +440,7 @@
       "denied_amount": 160.0,
       "appeal_window_days": 65,
       "appeal_window_source": "OPTUM",
-      "days_left_to_appeal": 41,
+      "days_left_to_appeal": 40,
       "urgency": "NORMAL",
       "expected_value": 80.0
     },
@@ -421,6 +457,7 @@
       "cpt": "90837",
       "service_date": "2026-06-03",
       "denial_date": "2026-06-15",
+      "reversal": false,
       "adjustments": [
         {
           "group": "CO",
@@ -428,8 +465,10 @@
           "amount": 160.0
         }
       ],
+      "remark_codes": [],
       "carc": "197",
       "carc_desc": "Precertification/authorization absent",
+      "remark_notes": [],
       "category": "authorization",
       "appealable": "yes",
       "win_prob": 0.5,
@@ -438,7 +477,7 @@
       "denied_amount": 160.0,
       "appeal_window_days": 65,
       "appeal_window_source": "OPTUM",
-      "days_left_to_appeal": 41,
+      "days_left_to_appeal": 40,
       "urgency": "NORMAL",
       "expected_value": 80.0
     },
@@ -455,6 +494,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-08",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -464,6 +505,7 @@
       ],
       "carc": "197",
       "carc_desc": "Precertification/authorization absent",
+      "remark_notes": [],
       "category": "authorization",
       "appealable": "yes",
       "win_prob": 0.5,
@@ -472,7 +514,7 @@
       "denied_amount": 150.0,
       "appeal_window_days": 180,
       "appeal_window_source": "BCBS",
-      "days_left_to_appeal": 149,
+      "days_left_to_appeal": 148,
       "urgency": "NORMAL",
       "expected_value": 75.0
     },
@@ -489,6 +531,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-08",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -498,6 +542,7 @@
       ],
       "carc": "197",
       "carc_desc": "Precertification/authorization absent",
+      "remark_notes": [],
       "category": "authorization",
       "appealable": "yes",
       "win_prob": 0.5,
@@ -506,7 +551,7 @@
       "denied_amount": 150.0,
       "appeal_window_days": 180,
       "appeal_window_source": "BCBS",
-      "days_left_to_appeal": 149,
+      "days_left_to_appeal": 148,
       "urgency": "NORMAL",
       "expected_value": 75.0
     },
@@ -523,6 +568,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-18",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -532,6 +579,7 @@
       ],
       "carc": "151",
       "carc_desc": "Payment adjusted - frequency/units exceed allowed",
+      "remark_notes": [],
       "category": "frequency",
       "appealable": "yes",
       "win_prob": 0.45,
@@ -540,7 +588,7 @@
       "denied_amount": 165.0,
       "appeal_window_days": 180,
       "appeal_window_source": "CIGNA",
-      "days_left_to_appeal": 159,
+      "days_left_to_appeal": 158,
       "urgency": "NORMAL",
       "expected_value": 74.25
     },
@@ -557,6 +605,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-15",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -566,6 +616,7 @@
       ],
       "carc": "242",
       "carc_desc": "Services not provided by network/primary care providers",
+      "remark_notes": [],
       "category": "network",
       "appealable": "maybe",
       "win_prob": 0.4,
@@ -574,7 +625,7 @@
       "denied_amount": 165.0,
       "appeal_window_days": 180,
       "appeal_window_source": "BCBS",
-      "days_left_to_appeal": 156,
+      "days_left_to_appeal": 155,
       "urgency": "NORMAL",
       "expected_value": 66.0
     },
@@ -591,6 +642,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-10",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -600,6 +653,7 @@
       ],
       "carc": "29",
       "carc_desc": "Time limit for filing has expired",
+      "remark_notes": [],
       "category": "timely_filing",
       "appealable": "maybe",
       "win_prob": 0.4,
@@ -608,7 +662,7 @@
       "denied_amount": 160.0,
       "appeal_window_days": 65,
       "appeal_window_source": "UNITEDHEALTHCARE",
-      "days_left_to_appeal": 36,
+      "days_left_to_appeal": 35,
       "urgency": "NORMAL",
       "expected_value": 64.0
     },
@@ -625,6 +679,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-06-02",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -634,6 +690,7 @@
       ],
       "carc": "204",
       "carc_desc": "Service not covered under current benefit plan",
+      "remark_notes": [],
       "category": "coverage",
       "appealable": "maybe",
       "win_prob": 0.25,
@@ -642,7 +699,7 @@
       "denied_amount": 135.0,
       "appeal_window_days": 60,
       "appeal_window_source": "MAGELLAN",
-      "days_left_to_appeal": 23,
+      "days_left_to_appeal": 22,
       "urgency": "HIGH",
       "expected_value": 33.75
     },
@@ -659,6 +716,7 @@
       "cpt": "90834",
       "service_date": "2026-06-05",
       "denial_date": "2026-06-15",
+      "reversal": false,
       "adjustments": [
         {
           "group": "CO",
@@ -666,8 +724,10 @@
           "amount": 145.0
         }
       ],
+      "remark_codes": [],
       "carc": "18",
       "carc_desc": "Exact duplicate claim/service",
+      "remark_notes": [],
       "category": "duplicate",
       "appealable": "maybe",
       "win_prob": 0.15,
@@ -676,7 +736,7 @@
       "denied_amount": 145.0,
       "appeal_window_days": 65,
       "appeal_window_source": "OPTUM",
-      "days_left_to_appeal": 41,
+      "days_left_to_appeal": 40,
       "urgency": "NORMAL",
       "expected_value": 21.75
     },
@@ -693,6 +753,7 @@
       "cpt": "90837",
       "service_date": "2026-06-02",
       "denial_date": "2026-06-15",
+      "reversal": false,
       "adjustments": [
         {
           "group": "CO",
@@ -705,8 +766,10 @@
           "amount": 25.0
         }
       ],
+      "remark_codes": [],
       "carc": "45",
       "carc_desc": "Charge exceeds fee schedule/contracted rate (contractual adjustment)",
+      "remark_notes": [],
       "category": "contractual",
       "appealable": "maybe",
       "win_prob": 0.2,
@@ -715,7 +778,7 @@
       "denied_amount": 36.5,
       "appeal_window_days": 65,
       "appeal_window_source": "OPTUM",
-      "days_left_to_appeal": 41,
+      "days_left_to_appeal": 40,
       "urgency": "NORMAL",
       "expected_value": 7.3
     },
@@ -732,6 +795,7 @@
       "cpt": "90837",
       "service_date": "2026-06-04",
       "denial_date": "2026-06-15",
+      "reversal": false,
       "adjustments": [
         {
           "group": "CO",
@@ -744,8 +808,10 @@
           "amount": 25.0
         }
       ],
+      "remark_codes": [],
       "carc": "45",
       "carc_desc": "Charge exceeds fee schedule/contracted rate (contractual adjustment)",
+      "remark_notes": [],
       "category": "contractual",
       "appealable": "maybe",
       "win_prob": 0.2,
@@ -754,7 +820,7 @@
       "denied_amount": 33.0,
       "appeal_window_days": 65,
       "appeal_window_source": "OPTUM",
-      "days_left_to_appeal": 41,
+      "days_left_to_appeal": 40,
       "urgency": "NORMAL",
       "expected_value": 6.6
     },
@@ -771,6 +837,8 @@
       "status_code": "4",
       "payer_claim_number": "",
       "denial_date": "2026-03-20",
+      "reversal": false,
+      "remark_codes": [],
       "adjustments": [
         {
           "group": "CO",
@@ -780,6 +848,7 @@
       ],
       "carc": "50",
       "carc_desc": "Not medically necessary per payer",
+      "remark_notes": [],
       "category": "medical_necessity",
       "appealable": "no",
       "win_prob": 0.0,
@@ -788,7 +857,7 @@
       "denied_amount": 160.0,
       "appeal_window_days": 65,
       "appeal_window_source": "UNITEDHEALTHCARE",
-      "days_left_to_appeal": -46,
+      "days_left_to_appeal": -47,
       "urgency": "EXPIRED",
       "expected_value": 0.0
     }
@@ -803,7 +872,7 @@
       "denied_total": 625.0,
       "expected_value": 406.25,
       "recommended_fix": "Credentialing/enrollment gap. Fix enrollment or bill under supervising provider per payer rules, then rebill EVERY affected claim - these come in expensive strings.",
-      "most_urgent_days_left": 140
+      "most_urgent_days_left": 139
     },
     {
       "payer": "OPTUM BEHAVIORAL HEALTH",
@@ -814,7 +883,7 @@
       "denied_total": 480.0,
       "expected_value": 240.0,
       "recommended_fix": "Request retro-authorization where payer allows; appeal with clinical necessity + any auth reference numbers. Often affects a whole string of visits - fix once, rebill all.",
-      "most_urgent_days_left": 41
+      "most_urgent_days_left": 40
     },
     {
       "payer": "BCBS TX",
@@ -825,7 +894,7 @@
       "denied_total": 300.0,
       "expected_value": 150.0,
       "recommended_fix": "Request retro-authorization where payer allows; appeal with clinical necessity + any auth reference numbers. Often affects a whole string of visits - fix once, rebill all.",
-      "most_urgent_days_left": 149
+      "most_urgent_days_left": 148
     },
     {
       "payer": "CIGNA",
@@ -836,7 +905,7 @@
       "denied_total": 180.0,
       "expected_value": 126.0,
       "recommended_fix": "Identify correct payer (check member ID/plan), submit there. Watch the correct payer's timely filing clock!",
-      "most_urgent_days_left": 153
+      "most_urgent_days_left": 152
     },
     {
       "payer": "OPTUM BEHAVIORAL HEALTH",
@@ -847,7 +916,7 @@
       "denied_total": 145.0,
       "expected_value": 116.0,
       "recommended_fix": "Submit the requested documentation. Fastest recoveries in the book.",
-      "most_urgent_days_left": 41
+      "most_urgent_days_left": 40
     },
     {
       "payer": "OPTUM BEHAVIORAL HEALTH",
@@ -858,7 +927,7 @@
       "denied_total": 145.0,
       "expected_value": 116.0,
       "recommended_fix": "Read the RARC for the specific missing element, supply it, resubmit. Usually fast money.",
-      "most_urgent_days_left": 41
+      "most_urgent_days_left": 40
     },
     {
       "payer": "UNITEDHEALTHCARE",
@@ -869,7 +938,7 @@
       "denied_total": 145.0,
       "expected_value": 116.0,
       "recommended_fix": "Read the RARC for the specific missing element, supply it, resubmit. Usually fast money.",
-      "most_urgent_days_left": 46
+      "most_urgent_days_left": 45
     },
     {
       "payer": "OPTUM BEHAVIORAL HEALTH",
@@ -880,7 +949,7 @@
       "denied_total": 175.0,
       "expected_value": 96.25,
       "recommended_fix": "Appeal with clinical documentation: treatment plan, progress notes, medical necessity letter. High value in behavioral health.",
-      "most_urgent_days_left": 41
+      "most_urgent_days_left": 40
     },
     {
       "payer": "AETNA",
@@ -891,7 +960,7 @@
       "denied_total": 165.0,
       "expected_value": 90.75,
       "recommended_fix": "Contact patient to complete payer questionnaire (accident/COB forms), then resubmit.",
-      "most_urgent_days_left": 160
+      "most_urgent_days_left": 159
     },
     {
       "payer": "CIGNA",
@@ -902,7 +971,7 @@
       "denied_total": 165.0,
       "expected_value": 74.25,
       "recommended_fix": "Appeal with documentation of medical necessity for frequency (common for BH visit limits), or verify units billed correctly.",
-      "most_urgent_days_left": 159
+      "most_urgent_days_left": 158
     },
     {
       "payer": "BCBS TX",
@@ -913,7 +982,7 @@
       "denied_total": 165.0,
       "expected_value": 66.0,
       "recommended_fix": "If provider IS in network: appeal with contract/roster evidence (common after payer roster errors). If truly OON, check OON benefits.",
-      "most_urgent_days_left": 156
+      "most_urgent_days_left": 155
     },
     {
       "payer": "UNITEDHEALTHCARE",
@@ -924,7 +993,7 @@
       "denied_total": 160.0,
       "expected_value": 64.0,
       "recommended_fix": "Appeal WITH proof of timely original submission (clearinghouse acceptance report). Strong if you have the 999/277 acknowledgment.",
-      "most_urgent_days_left": 36
+      "most_urgent_days_left": 35
     },
     {
       "payer": "MAGELLAN",
@@ -935,7 +1004,7 @@
       "denied_total": 135.0,
       "expected_value": 33.75,
       "recommended_fix": "Verify against actual plan documents; payers misapply this to telehealth/BH parity. Appeal citing parity laws where applicable.",
-      "most_urgent_days_left": 23
+      "most_urgent_days_left": 22
     },
     {
       "payer": "OPTUM BEHAVIORAL HEALTH",
@@ -946,7 +1015,7 @@
       "denied_total": 145.0,
       "expected_value": 21.75,
       "recommended_fix": "Usually a true duplicate. Only appeal if it was NOT a duplicate (e.g., two same-day sessions with modifier 76/59 missing).",
-      "most_urgent_days_left": 41
+      "most_urgent_days_left": 40
     },
     {
       "payer": "OPTUM BEHAVIORAL HEALTH",
@@ -957,7 +1026,7 @@
       "denied_total": 69.5,
       "expected_value": 13.9,
       "recommended_fix": "Normally a write-off, BUT compare paid rate vs contract - this code hides underpayments. Flag for underpayment audit.",
-      "most_urgent_days_left": 41
+      "most_urgent_days_left": 40
     }
   ]
 }

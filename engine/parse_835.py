@@ -53,6 +53,7 @@ def parse_x12_835(text):
             if current:
                 claims.append(current)
             status = _clean(parts[2]) if len(parts) > 2 else ""
+            # status 22 = reversal of prior payment - record but flag so triage skips it
             current = {
                 "claim_id": _clean(parts[1]) if len(parts) > 1 else "",
                 "payer": payer_name,
@@ -67,7 +68,9 @@ def parse_x12_835(text):
                 "cpt": "",
                 "service_date": "",
                 "denial_date": _fmt_date(check_date),
+                "reversal": status == "22",
                 "adjustments": [],  # list of {group, code, amount}
+                "remark_codes": [],  # RARC from LQ segments
             }
         elif current is not None:
             if tag == "NM1" and len(parts) > 4 and parts[1] == "QC":
@@ -95,6 +98,11 @@ def parse_x12_835(text):
             elif tag == "DTM" and len(parts) > 2 and parts[1] in ("232", "472"):
                 if not current["service_date"]:
                     current["service_date"] = _fmt_date(_clean(parts[2]))
+            elif tag == "LQ" and len(parts) > 2 and parts[1] in ("HE", "RX"):
+                # Remark codes (RARC) - the payer's real reason often lives here
+                code = _clean(parts[2])
+                if code and code not in current["remark_codes"]:
+                    current["remark_codes"].append(code)
 
     if current:
         claims.append(current)
@@ -120,11 +128,20 @@ def parse_csv(text):
         "cpt": ["cpt", "procedure", "code", "cpt code", "procedure code"],
         "charged": ["charged", "charge", "billed", "amount", "charge amount", "billed amount"],
         "paid": ["paid", "payment", "paid amount", "insurance paid"],
-        "denial_code": ["denial_code", "carc", "reason code", "denial reason code", "adj reason", "denial code"],
+        "denial_code": ["denial_code", "carc", "reason code", "denial reason code", "adj reason",
+                        "denial code", "reason", "denial reason", "adjustment reason code", "carc code"],
         "denial_group": ["denial_group", "group", "group code", "adj group"],
-        "denial_date": ["denial_date", "denied date", "remit date", "eob date", "check date"],
+        "denial_date": ["denial_date", "denied date", "remit date", "eob date", "check date",
+                        "remittance date", "denial date"],
+        "remark_code": ["remark_code", "rarc", "remark", "remark codes", "rarc code"],
     }
-    reader = csv.DictReader(io.StringIO(text))
+    # Sniff delimiter (real exports arrive as commas, tabs, semicolons, pipes)
+    first_line = text.splitlines()[0] if text.splitlines() else ""
+    delim = ","
+    for d in ("\t", ";", "|"):
+        if first_line.count(d) > first_line.count(delim):
+            delim = d
+    reader = csv.DictReader(io.StringIO(text), delimiter=delim)
     field_map = {}
     for canon, opts in aliases.items():
         for h in reader.fieldnames or []:
@@ -144,11 +161,14 @@ def parse_csv(text):
             return _clean(row.get(field_map.get(canon, ""), default))
 
         def money(canon):
-            v = re.sub(r"[^0-9.\-]", "", g(canon) or "0")
+            raw = g(canon) or "0"
+            neg = "(" in raw and ")" in raw  # accountants write negatives as (36.50)
+            v = re.sub(r"[^0-9.\-]", "", raw)
             try:
-                return float(v or 0)
+                val = float(v or 0)
             except ValueError:
                 return 0.0
+            return -abs(val) if neg else val
 
         charged, paid = money("charged"), money("paid")
         code = g("denial_code").upper().replace("CO-", "").replace("PR-", "").replace("OA-", "").replace("PI-", "")
@@ -165,6 +185,8 @@ def parse_csv(text):
             "status_code": "4",
             "payer_claim_number": "",
             "denial_date": _norm_csv_date(g("denial_date")) or _norm_csv_date(g("service_date")),
+            "reversal": False,
+            "remark_codes": [c.strip().upper() for c in re.split(r"[,; ]+", g("remark_code")) if c.strip()],
             "adjustments": [{
                 "group": g("denial_group").upper() or "CO",
                 "code": code,

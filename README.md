@@ -20,6 +20,13 @@ python3 engine/appeal_letter.py reports/demo_audit.json --batch "OPTUM BEHAVIORA
 
 # 3. Build a lead list from the free CMS NPI registry (real practices, owner names, phones)
 python3 leads/find_leads.py --state TX --city Dallas --limit 100 -o leads/tx_dallas.csv
+
+# 4. Prove recoveries & draft the invoice: match worked claims against NEW remittance files
+python3 engine/reconcile.py --inventory tracker/worked_claims_template.csv --fee 0.20 \
+    --practice "Acme Counseling Group" new_835_july.txt -o reports/recovery_invoice.html
+
+# 5. Run the test suite (27 checks against deliberately messy fixtures)
+python3 engine/tests.py
 ```
 
 Everything is stdlib Python — no dependencies, runs anywhere.
@@ -32,8 +39,12 @@ Everything is stdlib Python — no dependencies, runs anywhere.
 | `engine/report.py` | Customer-facing audit report (HTML, print-to-PDF) |
 | `engine/run_audit.py` | One command: files in → report out |
 | `engine/appeal_letter.py` | Appeal drafts (offline templates; Claude API optional). **Human reviews every letter.** |
-| `data/carc_codes.json` | Denial-code knowledge base — add every new code you meet; this compounds into the moat |
+| `engine/reconcile.py` | Matches worked claims against later 835s → verified recoveries + invoice (how we prove our fee) |
+| `engine/tests.py` | Dependency-free test suite; run before every change ships |
+| `data/carc_codes.json` | Denial-code knowledge base (49 codes) — add every new code you meet; this compounds into the moat |
+| `data/rarc_codes.json` | Remark-code table — the payer's *specific* reason |
 | `data/payer_deadlines.json` | Appeal windows per payer (verify per plan!) |
+| `legal/` | Pilot-agreement DRAFT + compliance checklist (law-clinic review before use) |
 | `leads/find_leads.py` | NPPES registry → qualified-lead CSV |
 | `outreach/templates.md` | Email/LinkedIn/phone scripts + objection answers |
 | `tracker/scorecard.csv` | The only 8 numbers that matter, weekly |

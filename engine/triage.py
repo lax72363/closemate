@@ -29,13 +29,17 @@ def appeal_window(payer, deadlines):
 def triage(claims, today=None):
     carc = load_json("carc_codes.json")
     deadlines = load_json("payer_deadlines.json")
+    rarc = load_json("rarc_codes.json") if os.path.exists(
+        os.path.join(DATA_DIR, "rarc_codes.json")) else {}
     today = today or date.today()
 
     out = []
     for c in claims:
-        if not c.get("denied") and c.get("paid", 0) > 0:
+        if c.get("reversal") or c.get("status_code") == "22":
+            continue  # payment reversals are bookkeeping, not workable denials
+        if not c.get("denied"):
             # Paid claims: keep only as underpayment-audit candidates (CARC 45 present)
-            if not any(a["code"] == "45" for a in c.get("adjustments", [])):
+            if not (c.get("paid", 0) > 0 and any(a["code"] == "45" for a in c.get("adjustments", []))):
                 continue
 
         # Primary denial reason = largest non-patient-responsibility adjustment
@@ -70,10 +74,15 @@ def triage(claims, today=None):
             "HIGH" if days_left is not None and days_left <= 30 else "NORMAL"
         )
 
+        remark_notes = [
+            f"{rc}: {rarc[rc]}" for rc in c.get("remark_codes", []) if rc in rarc
+        ]
+
         out.append({
             **c,
             "carc": code,
             "carc_desc": info["desc"],
+            "remark_notes": remark_notes,
             "category": info["category"],
             "appealable": "no" if expired else info["appealable"],
             "win_prob": win_prob,
