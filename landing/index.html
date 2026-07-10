@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solo401k Rescue — File Your Form 5500-EZ Before July 31</title>
+<meta name="description" content="If your solo 401(k) held over $250,000, the IRS requires Form 5500-EZ by July 31 — or $250/day in penalties. We'll get it filed with you, live, in 30 minutes. Filed or free.">
+<style>
+  :root{
+    --ink:#16202b; --ink-2:#43525f; --paper:#ffffff; --wash:#f4f6f8;
+    --brand:#0b5fff; --brand-dark:#0847bf; --alert:#c8321e; --alert-wash:#fdefec;
+    --ok:#0e7a4f; --line:#dfe5ea; --radius:12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
+  a{color:var(--brand)}
+  h1,h2,h3{line-height:1.2;letter-spacing:-0.01em}
+  section{padding:56px 0}
+  section+section{border-top:1px solid var(--line)}
+
+  .topbar{background:var(--alert);color:#fff;text-align:center;padding:10px 16px;font-weight:600;font-size:15px}
+  .topbar span{font-variant-numeric:tabular-nums}
+
+  header.hero{padding:64px 0 48px;text-align:center}
+  .hero .kicker{display:inline-block;background:var(--alert-wash);color:var(--alert);
+    font-weight:700;font-size:14px;padding:6px 14px;border-radius:999px;margin-bottom:20px}
+  .hero h1{font-size:clamp(28px,5vw,44px);margin-bottom:18px}
+  .hero h1 em{font-style:normal;color:var(--alert)}
+  .hero p.sub{font-size:19px;color:var(--ink-2);max-width:640px;margin:0 auto 30px}
+  .cta{display:inline-block;background:var(--brand);color:#fff;font-weight:700;font-size:18px;
+    padding:16px 32px;border-radius:var(--radius);text-decoration:none;box-shadow:0 4px 14px rgba(11,95,255,.3)}
+  .cta:hover{background:var(--brand-dark)}
+  .cta-sub{display:block;margin-top:14px;font-size:15px}
+  .guarantee{margin-top:22px;font-size:15px;color:var(--ok);font-weight:600}
+
+  .countdown{display:flex;gap:14px;justify-content:center;margin:26px 0 6px}
+  .countdown .unit{background:var(--ink);color:#fff;border-radius:10px;min-width:78px;padding:12px 8px}
+  .countdown .num{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;display:block}
+  .countdown .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.75}
+
+  .facts{background:var(--wash);border-radius:var(--radius);padding:28px;margin-top:8px}
+  .facts ul{list-style:none}
+  .facts li{padding:10px 0 10px 34px;position:relative;border-bottom:1px solid var(--line)}
+  .facts li:last-child{border-bottom:none}
+  .facts li::before{content:"→";position:absolute;left:6px;color:var(--alert);font-weight:700}
+  .facts cite{display:block;font-size:13px;color:var(--ink-2);font-style:normal;margin-top:2px}
+
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:28px}
+  .step{background:var(--wash);border-radius:var(--radius);padding:24px}
+  .step .n{display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--brand);
+    color:#fff;font-weight:800;align-items:center;justify-content:center;margin-bottom:12px}
+  .step h3{font-size:17px;margin-bottom:8px}
+  .step p{font-size:15px;color:var(--ink-2)}
+
+  .tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:28px}
+  .tier{border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+  .tier.flag{border:2px solid var(--brand);position:relative}
+  .tier.flag .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--brand);color:#fff;font-size:12px;font-weight:700;padding:4px 14px;border-radius:999px;white-space:nowrap}
+  .tier h3{font-size:18px}
+  .tier .price{font-size:34px;font-weight:800;margin:10px 0 4px}
+  .tier .per{font-size:13px;color:var(--ink-2);margin-bottom:14px}
+  .tier ul{list-style:none;font-size:15px;color:var(--ink-2);flex:1}
+  .tier li{padding:6px 0 6px 24px;position:relative}
+  .tier li::before{content:"✓";position:absolute;left:2px;color:var(--ok);font-weight:700}
+  .tier a{display:block;text-align:center;margin-top:18px;padding:12px;border-radius:10px;
+    text-decoration:none;font-weight:700;border:2px solid var(--brand);color:var(--brand)}
+  .tier.flag a{background:var(--brand);color:#fff}
+
+  details{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;padding:16px 18px}
+  details summary{font-weight:600;cursor:pointer}
+  details p{margin-top:10px;color:var(--ink-2);font-size:15.5px}
+
+  .fine{font-size:13px;color:var(--ink-2);background:var(--wash);border-radius:10px;padding:18px;margin-top:34px}
+  footer{padding:30px 0 50px;text-align:center;font-size:14px;color:var(--ink-2)}
+  @media (max-width:560px){ .countdown .unit{min-width:64px} section{padding:40px 0} }
+</style>
+</head>
+<body>
+
+<div class="topbar">IRS Form 5500-EZ deadline: <span>July 31, 2026</span> · Late penalty: $250/day, up to $150,000</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Solo 401(k) over $250,000? This is for you.</div>
+    <h1>Haven't filed your Solo 401(k)'s Form 5500-EZ?<br>
+        The deadline is July 31. The penalty is <em>$250&nbsp;a&nbsp;day.</em></h1>
+    <p class="sub">Your brokerage won't file it — legally it's <strong>your</strong> job as plan
+       administrator, and most CPAs don't touch this form. We'll get it filed <strong>with you,
+       live on Zoom, in 30 minutes.</strong> You keep full control; we never access your accounts.</p>
+
+    <div class="countdown" id="countdown" aria-label="Time remaining until the July 31 deadline">
+      <div class="unit"><span class="num" id="cd-d">–</span><span class="lbl">days</span></div>
+      <div class="unit"><span class="num" id="cd-h">–</span><span class="lbl">hours</span></div>
+      <div class="unit"><span class="num" id="cd-m">–</span><span class="lbl">min</span></div>
+      <div class="unit"><span class="num" id="cd-s">–</span><span class="lbl">sec</span></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-2);margin-bottom:26px">until the 2025 plan-year filing deadline</p>
+
+    <a class="cta" href="#pricing">Book my File-With-Me session — $199</a>
+    <a class="cta-sub" href="#checker">Not sure you need to file? Take the free 60-second checker →</a>
+    <div class="guarantee">✓ Filed by the end of your session — or it's 100% free.</div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>The form nobody told you about</h2>
+    <p style="margin-top:14px;color:var(--ink-2)">Solo 401(k)s are wonderful — right up until your balance
+    crosses <strong>$250,000</strong>. From that year on, the IRS requires an annual information return,
+    <strong>Form 5500-EZ</strong>, due July 31. Miss it and penalties accrue daily. Here's why so many
+    smart, diligent people get blindsided:</p>
+    <div class="facts">
+      <ul>
+        <li><strong>Your brokerage won't file it.</strong> Fidelity, Schwab, E*TRADE custody your assets —
+          but the filing duty belongs to the <em>plan administrator</em>. For a solo 401(k), that's you.
+          <cite>It's in your plan adoption agreement — the part nobody reads.</cite></li>
+        <li><strong>Your CPA probably doesn't handle it.</strong> Form 5500-EZ isn't an income-tax form and
+          isn't in standard tax software, so many tax preparers decline it — or don't know it exists.
+          <cite>Ask yours. If they handle it, use them. Seriously.</cite></li>
+        <li><strong>The penalty is $250 per day, up to $150,000</strong> per return, per year.
+          <cite>Source: IRS Form 5500-EZ instructions (irs.gov).</cite></li>
+        <li><strong>Missed past years too?</strong> The IRS has a penalty-relief program that caps the damage
+          at $500 per return ($1,500 max) — but only if you fix it <em>before they contact you</em>.
+          <cite>Rev. Proc. 2015-32 — our Amnesty Package walks you through it.</cite></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step"><span class="n">1</span>
+        <h3>Book &amp; answer 5 questions</h3>
+        <p>Pick a time. Tell us your plan year-end balance, EIN status, and filing history. Takes 3 minutes.</p></div>
+      <div class="step"><span class="n">2</span>
+        <h3>30 minutes on Zoom — your screen, your hands</h3>
+        <p>We walk you through the form line by line. You type, you click, you stay in control.
+           We never see passwords, accounts, or money.</p></div>
+      <div class="step"><span class="n">3</span>
+        <h3>Leave with the confirmation</h3>
+        <p>You submit before we hang up and keep the IRS acknowledgement. Done for the year —
+           and we'll remind you next year before you'd ever think of it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <h2>Pricing — flat, no surprises</h2>
+    <div class="tiers">
+      <div class="tier">
+        <h3>Rescue Kit</h3>
+        <div class="price">$99</div>
+        <div class="per">self-serve, instant access</div>
+        <ul>
+          <li>Line-by-line video walkthrough</li>
+          <li>Fillable prep worksheet</li>
+          <li>EFAST2 registration guide</li>
+          <li>Pre-submission checklist</li>
+          <li>Deadline reminders</li>
+        </ul>
+        <a href="STRIPE_LINK_KIT">Get the kit</a>
+      </div>
+      <div class="tier flag">
+        <span class="badge">Most popular — filed or free</span>
+        <h3>File-With-Me Session</h3>
+        <div class="price">$199</div>
+        <div class="per">30-minute live guided filing</div>
+        <ul>
+          <li>Everything in the Rescue Kit</li>
+          <li>Live 1-on-1 Zoom session</li>
+          <li>We pre-fill your worksheet from intake</li>
+          <li>You submit live &amp; keep the confirmation</li>
+          <li>100% refund if not filed by end of call</li>
+        </ul>
+        <a href="CALENDLY_LINK_SESSION">Book my session</a>
+      </div>
+      <div class="tier">
+        <h3>Late-Filer Amnesty</h3>
+        <div class="price">$449</div>
+        <div class="per">per missed plan year</div>
+        <ul>
+          <li>Everything in the Session</li>
+          <li>Guided IRS penalty-relief submission</li>
+          <li>Caps exposure at $500/yr instead of $250/day</li>
+          <li>Multi-year filers: capped at 3 years' fees</li>
+        </ul>
+        <a href="CALENDLY_LINK_AMNESTY">Fix my missed years</a>
+      </div>
+    </div>
+    <p style="margin-top:22px;font-size:15px;color:var(--ink-2)">For context: TPAs charge $125–$500/yr for
+    plan administration — if they'll take you at all (most only serve their own plan customers).
+    The IRS charges $250/day. We charge $199, once, filed-or-free.</p>
+  </div>
+</section>
+
+<section id="checker">
+  <div class="wrap">
+    <h2>Not sure you need to file?</h2>
+    <p style="margin:14px 0 22px;color:var(--ink-2)">Answer 5 questions and we'll tell you straight —
+    including "no, you're fine, keep your money." If you don't need to file, we'll say so and send you
+    the free guide anyway.</p>
+    <a class="cta" href="CHECKER_FORM_LINK" style="background:var(--ink)">Take the free 60-second checker</a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Questions people ask us</h2>
+    <div style="margin-top:24px">
+      <details><summary>Do I even need to file Form 5500-EZ?</summary>
+        <p>Only if your solo 401(k)'s total assets exceeded $250,000 at the end of the plan year — or if
+        this is the plan's final year (you're closing it), in which case you must file regardless of
+        balance. Use the free checker above; if you don't need to file, we'll tell you.</p></details>
+      <details><summary>Why didn't my brokerage tell me about this?</summary>
+        <p>Filing is the plan administrator's legal duty — and for a solo 401(k), the administrator is you.
+        Brokerages custody assets; they don't administer your plan. It's buried in your adoption agreement.</p></details>
+      <details><summary>Can't my CPA just do this?</summary>
+        <p>Ask them — if they handle Form 5500-EZ, use them. Many decline because it isn't an income-tax
+        form and isn't in standard tax software. That gap is why we exist.</p></details>
+      <details><summary>Do you need my account logins or any access?</summary>
+        <p>Never. You file on your own screen while we guide you. We never take custody of credentials,
+        funds, or your return. That's by design — you shouldn't hand your retirement account to anyone.</p></details>
+      <details><summary>What if I've missed previous years?</summary>
+        <p>Don't panic, and don't wait: the IRS penalty-relief program (Rev. Proc. 2015-32) caps penalties
+        at $500 per return / $1,500 total for most late filers — but only before the IRS contacts you.
+        The Amnesty Package walks you through it step by step.</p></details>
+      <details><summary>What if my situation is complicated?</summary>
+        <p>Then we'll say so on the call, refund you in full, and point you toward an ERISA-savvy
+        professional. We handle the straightforward 90% and we're honest about the rest.</p></details>
+      <details><summary>What if we're running out of time before July 31?</summary>
+        <p>Form 5558 can extend your deadline to October 15. Every session booked after July 25 includes
+        the extension walkthrough free, as a safety net.</p></details>
+      <details><summary>Is this tax or legal advice?</summary>
+        <p>No — we provide education and preparation assistance. You remain the filer of record. For
+        advice on your specific situation, consult a qualified tax professional or ERISA attorney.</p></details>
+    </div>
+
+    <div class="fine">
+      <strong>Disclaimer:</strong> Solo401k Rescue provides educational content and filing preparation
+      assistance only. We are not a law firm, CPA firm, or registered investment adviser, and nothing on
+      this site is legal, tax, or investment advice. Form 5500-EZ filing requirements, deadlines, and
+      penalty amounts are set by the IRS and may change — verify current rules at irs.gov. You are solely
+      responsible for your plan's filings. Complex situations should be reviewed by a qualified professional.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Solo401k Rescue · <a href="mailto:CONTACT_EMAIL">Contact</a> ·
+  Deadline data sourced from IRS Form 5500-EZ instructions</div>
+</footer>
+
+<script>
+  // Countdown to July 31, 2026 23:59:59 ET (UTC-4)
+  var deadline = new Date("2026-07-31T23:59:59-04:00").getTime();
+  function pad(n){ return n < 10 ? "0" + n : "" + n; }
+  function tick(){
+    var ms = deadline - Date.now();
+    if (ms <= 0) {
+      document.getElementById("countdown").innerHTML =
+        '<div class="unit" style="min-width:auto;padding:12px 22px"><span class="num">Deadline passed</span>' +
+        '<span class="lbl">see the Late-Filer Amnesty Package</span></div>';
+      return;
+    }
+    var d = Math.floor(ms / 864e5),
+        h = Math.floor(ms % 864e5 / 36e5),
+        m = Math.floor(ms % 36e5 / 6e4),
+        s = Math.floor(ms % 6e4 / 1e3);
+    document.getElementById("cd-d").textContent = d;
+    document.getElementById("cd-h").textContent = pad(h);
+    document.getElementById("cd-m").textContent = pad(m);
+    document.getElementById("cd-s").textContent = pad(s);
+    setTimeout(tick, 1000);
+  }
+  tick();
+</script>
+</body>
+</html>
