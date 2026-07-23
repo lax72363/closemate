@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KeywordFit — Free ATS Resume Keyword Scanner (100% Private)</title>
+<meta name="description" content="Paste your resume and a job description. Get your ATS keyword match score instantly. Runs 100% in your browser — your resume never leaves your device.">
+<style>
+:root{
+  --bg:#f7f8fa; --panel:#ffffff; --ink:#1a2233; --muted:#5c6478; --line:#e3e6ee;
+  --accent:#2f6df6; --accent-ink:#ffffff; --good:#1e8e5a; --warn:#b7791f; --bad:#c53030;
+  --good-bg:#e8f5ee; --warn-bg:#fdf3e0; --bad-bg:#fdecec; --lock:#8a91a5;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0f1420; --panel:#171e2e; --ink:#e8ecf5; --muted:#98a1b8; --line:#2a3348;
+    --accent:#5b8dff; --accent-ink:#0c1220; --good:#4ecb8d; --warn:#e2b25a; --bad:#f08a8a;
+    --good-bg:#12301f; --warn-bg:#332812; --bad-bg:#391b1b; --lock:#6b7288;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}
+.logo span{color:var(--accent)}
+.btn{display:inline-block;border:0;border-radius:8px;padding:10px 18px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity .15s}
+.btn:hover{opacity:.88}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.hero{text-align:center;padding:36px 0 8px}
+.hero h1{font-size:clamp(28px,4.5vw,42px);line-height:1.15;letter-spacing:-.02em;max-width:760px;margin:0 auto}
+.hero p{color:var(--muted);max-width:620px;margin:14px auto 0;font-size:18px}
+.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0 6px}
+.badge{font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--muted);background:var(--panel)}
+.app{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin:26px 0}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:8px;padding:7px 14px;font-size:14px;font-weight:600;cursor:pointer}
+.tab.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:720px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+label small{font-weight:400;color:var(--muted)}
+textarea{width:100%;min-height:230px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:12px;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;resize:vertical}
+textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.actions{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
+.hint{font-size:13px;color:var(--muted)}
+.results{margin-top:26px;display:none}
+.scorecard{display:flex;gap:22px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--bg)}
+.scorenum{font-size:44px;font-weight:800;letter-spacing:-.03em;min-width:120px}
+.scorebarwrap{flex:1;min-width:220px}
+.scorebar{height:12px;border-radius:6px;background:var(--line);overflow:hidden}
+.scorebar i{display:block;height:100%;border-radius:6px;transition:width .6s ease}
+.scoreverdict{font-weight:700;margin-top:8px}
+.scoresub{font-size:13px;color:var(--muted);margin-top:2px}
+h2{font-size:22px;letter-spacing:-.01em;margin:30px 0 10px}
+h3{font-size:16px;margin:22px 0 8px}
+.kwtablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px}
+.pill.good{background:var(--good-bg);color:var(--good)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.locked-row td{color:var(--lock)}
+.locked-row .kw{filter:blur(5px);user-select:none}
+.upsell{border:2px solid var(--accent);border-radius:14px;padding:26px;margin:28px 0;text-align:center;background:var(--panel)}
+.upsell h2{margin-top:0}
+.upsell .price{font-size:34px;font-weight:800;margin:8px 0}
+.upsell .price s{color:var(--muted);font-weight:500;font-size:20px;margin-right:8px}
+.upsell ul{list-style:none;margin:14px auto 20px;max-width:420px;text-align:left}
+.upsell li{padding:5px 0 5px 26px;position:relative}
+.upsell li::before{content:"✓";position:absolute;left:0;color:var(--good);font-weight:800}
+.fine{font-size:13px;color:var(--muted);margin-top:10px}
+.checkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.check{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.check b{display:block;margin-bottom:2px}
+.check .pill{float:right}
+.check p{font-size:13px;color:var(--muted);margin-top:4px}
+.suggest{border-left:3px solid var(--accent);background:var(--bg);border-radius:0 10px 10px 0;padding:12px 14px;margin:10px 0;font-size:14px}
+.suggest b{color:var(--accent)}
+.faq{margin:40px 0}
+.faq details{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:14px 16px;margin-bottom:10px}
+.faq summary{font-weight:700;cursor:pointer}
+.faq p{color:var(--muted);margin-top:8px;font-size:15px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 40px;color:var(--muted);font-size:13px;text-align:center}
+.pro-only{display:none}
+body.is-pro .pro-only{display:block}
+body.is-pro .tabs.pro-only{display:flex}
+body.is-pro nav.pro-only,body.is-pro span.pro-only{display:inline-block}
+body.is-pro .free-only{display:none}
+@media print{
+  header,.inputs,.actions,.upsell,.faq,footer,.tabs,.badges,.hero p{display:none!important}
+  body{background:#fff;color:#000}
+  .app,.scorecard,.kwtablewrap,.check{border-color:#ccc;background:#fff}
+  .results{display:block!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">Keyword<span>Fit</span> <span style="font-size:12px;color:var(--muted);font-weight:600" class="pro-only">PRO</span></div>
+  <nav class="free-only"><a class="btn btn-primary" href="#pro" id="navBuy">Get Pro — $12</a></nav>
+  <nav class="pro-only"><button class="btn btn-ghost" onclick="window.print()">Print / Save PDF report</button></nav>
+</header>
+
+<section class="hero">
+  <h1 class="free-only">Will your resume survive the ATS? Find out in 10 seconds.</h1>
+  <h1 class="pro-only">KeywordFit Pro — your full ATS optimization report</h1>
+  <p class="free-only">Paste your resume and the job description. Get your keyword match score instantly — <b>100% in your browser. Your resume is never uploaded anywhere.</b></p>
+  <p class="pro-only">Full keyword tables, bullet suggestions, formatting audit, multi-job targeting, printable reports. Works offline — this file is yours forever.</p>
+  <div class="badges">
+    <span class="badge">🔒 Nothing leaves your device</span>
+    <span class="badge">⚡ Instant results</span>
+    <span class="badge">🚫 No sign-up</span>
+    <span class="badge pro-only" style="display:inline-block">♾️ Lifetime license</span>
+  </div>
+</section>
+
+<section class="app">
+  <div class="tabs pro-only" id="proTabs">
+    <button class="tab active" data-mode="single">Single job scan</button>
+    <button class="tab" data-mode="multi">Multi-job targeting</button>
+  </div>
+
+  <div class="inputs" id="singleInputs">
+    <div class="grid">
+      <div>
+        <label for="resume">Your resume <small>(paste the text)</small></label>
+        <textarea id="resume" placeholder="Paste your full resume text here…"></textarea>
+      </div>
+      <div>
+        <label for="jd">Job description <small>(paste the posting)</small></label>
+        <textarea id="jd" placeholder="Paste the full job description here…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="inputs" id="multiInputs" style="display:none">
+    <div class="grid">
+      <div>
+        <label for="resume2">Your resume</label>
+        <textarea id="resume2" placeholder="Paste your full resume text here…"></textarea>
+      </div>
+      <div>
+        <label for="jds">Job descriptions <small>(paste up to 10, separated by a line containing only ---)</small></label>
+        <textarea id="jds" placeholder="Job description 1&#10;---&#10;Job description 2&#10;---&#10;Job description 3"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" id="scanBtn">Scan my resume →</button>
+    <button class="btn btn-ghost" id="sampleBtn">Try with sample data</button>
+    <span class="hint">Runs locally. Nothing is sent to any server.</span>
+  </div>
+
+  <div class="results" id="results"></div>
+</section>
+
+<section class="upsell free-only" id="pro">
+  <h2>Unlock your full report with KeywordFit Pro</h2>
+  <div class="price"><s>$29</s>$12 <span style="font-size:15px;font-weight:600;color:var(--muted)">one-time · launch price</span></div>
+  <ul>
+    <li>Every matched &amp; missing keyword, categorized and ranked by importance</li>
+    <li>Ready-to-edit bullet point suggestions for your top missing skills</li>
+    <li>Resume formatting &amp; content audit (buzzwords, quantification, passive language)</li>
+    <li>Multi-job targeting: find the keywords 10 postings have in common</li>
+    <li>Printable PDF reports for every application</li>
+    <li>Delivered as a single file that runs offline — use it forever, on every job hunt</li>
+  </ul>
+  <a class="btn btn-primary" id="buyBtn" href="#" style="font-size:17px;padding:13px 30px">Get KeywordFit Pro — $12</a>
+  <p class="fine">One-time payment. No subscription (Jobscan charges $49.95/month). 30-day money-back guarantee — just reply to your receipt.</p>
+</section>
+
+<section class="faq free-only">
+  <h2>FAQ</h2>
+  <details><summary>Is my resume really private?</summary><p>Yes. This entire tool is a single web page with no backend. Open your browser's network tab and scan — you'll see zero requests. Your resume never leaves your device.</p></details>
+  <details><summary>How does the scoring work?</summary><p>We extract skills, tools, certifications and role-specific terms from the job description (weighted by how the posting emphasizes them), then check which appear in your resume. That keyword coverage is the core of what real ATS ranking and recruiter searches measure.</p></details>
+  <details><summary>What exactly do I get with Pro?</summary><p>A single HTML file delivered instantly via Gumroad. Open it in any browser — it's this tool with every feature unlocked, and it works offline forever. Free updates: re-download from your Gumroad library anytime.</p></details>
+  <details><summary>Why one-time instead of a subscription?</summary><p>Because a job hunt shouldn't come with a recurring bill. You buy it once, you keep it.</p></details>
+</section>
+
+<footer>
+  <div>KeywordFit — the private ATS resume scanner. © 2026.</div>
+  <div style="margin-top:6px">This tool provides keyword analysis, not legal or career advice. Results are estimates; every ATS is different.</div>
+</footer>
+</div>
+
+<script>
+/* ====================== CONFIG ====================== */
+const PRO = false; /* build flag: true in the paid file */
+const BUY_URL = "https://REPLACE_ME.gumroad.com/l/keywordfit"; /* <-- set your Gumroad link */
+document.getElementById('navBuy') && (document.getElementById('navBuy').href = BUY_URL);
+document.getElementById('buyBtn') && (document.getElementById('buyBtn').href = BUY_URL);
+if (PRO) document.body.classList.add('is-pro');
+
+/* ====================== SKILL DICTIONARY ====================== */
+/* name: canonical display; aliases: alternate spellings; cat: category */
+const DICT = [];
+function d(cat, entries){ for (const e of entries){ const [name, ...aliases] = Array.isArray(e)?e:[e]; DICT.push({name, aliases, cat}); } }
+d("Languages & Frameworks",[["JavaScript","js"],["TypeScript"],["Python"],["Java"],["C++","cpp"],["C#","c sharp"],["Go","golang"],["Rust"],["Ruby"],["PHP"],["Swift"],["Kotlin"],["Scala"],["R"],["MATLAB"],["SQL"],["NoSQL"],["HTML"],["CSS"],["React","react.js","reactjs"],["Angular"],["Vue","vue.js","vuejs"],["Next.js","nextjs"],["Node.js","node","nodejs"],["Express"],["Django"],["Flask"],["FastAPI"],["Spring","spring boot"],["Rails","ruby on rails"],[".NET","dotnet","asp.net"],["Laravel"],["GraphQL"],["REST","restful","rest apis","rest api"],["gRPC"],["Redux"],["Tailwind","tailwindcss"],["jQuery"],["Svelte"]]);
+d("Data, Cloud & DevOps",[["AWS","amazon web services"],["Azure","microsoft azure"],["GCP","google cloud","google cloud platform"],["Docker"],["Kubernetes","k8s"],["Terraform"],["Ansible"],["Jenkins"],["CI/CD","continuous integration","continuous delivery","continuous deployment"],["Git"],["GitHub"],["GitLab"],["Linux"],["Bash","shell scripting"],["PostgreSQL","postgres"],["MySQL"],["MongoDB"],["Redis"],["Elasticsearch"],["Kafka","apache kafka"],["Spark","apache spark","pyspark"],["Hadoop"],["Airflow","apache airflow"],["dbt"],["Snowflake"],["Databricks"],["BigQuery"],["Redshift"],["Tableau"],["Power BI","powerbi"],["Looker"],["Excel","microsoft excel"],["pandas"],["NumPy"],["scikit-learn","sklearn"],["TensorFlow"],["PyTorch"],["machine learning","ml"],["deep learning"],["NLP","natural language processing"],["computer vision"],["LLM","large language models","llms"],["generative AI","genai","gen ai"],["prompt engineering"],["data modeling"],["data warehousing","data warehouse"],["ETL","elt"],["data pipelines","data pipeline"],["A/B testing","ab testing","a b testing"],["statistics","statistical analysis"],["data visualization"],["microservices"],["serverless"],["Lambda","aws lambda"],["observability"],["monitoring"],["DevOps"],["SRE","site reliability"],["cloud infrastructure"],["API design","api development"],["unit testing"],["test automation","automated testing"],["Selenium"],["Cypress"],["Playwright"]]);
+d("Security & Compliance",[["cybersecurity","cyber security"],["information security","infosec"],["penetration testing","pen testing"],["SIEM"],["SOC 2","soc2"],["ISO 27001"],["GDPR"],["HIPAA"],["PCI DSS","pci-dss"],["vulnerability management"],["incident response"],["IAM","identity and access management"],["zero trust"],["network security"],["encryption"],["risk assessment"],["compliance"],["audit","auditing"]]);
+d("Product & Project",[["product management"],["product strategy"],["roadmap","product roadmap"],["Agile"],["Scrum"],["Kanban"],["SAFe"],["Jira"],["Confluence"],["Asana"],["Trello"],["Notion"],["stakeholder management"],["sprint planning"],["user stories"],["backlog","backlog grooming"],["OKRs","okr"],["KPIs","kpi"],["project management"],["program management"],["change management"],["risk management"],["budgeting","budget management"],["resource allocation"],["waterfall"],["PMP"],["user research"],["usability testing"],["product analytics"],["go-to-market","gtm"],["requirements gathering"],["cross-functional collaboration","cross functional"]]);
+d("Design",[["Figma"],["Sketch"],["Adobe Photoshop","photoshop"],["Adobe Illustrator","illustrator"],["InDesign"],["After Effects"],["Premiere Pro","premiere"],["UX design","ux"],["UI design","ui"],["wireframing","wireframes"],["prototyping","prototypes"],["design systems","design system"],["user-centered design","user centered design"],["accessibility","wcag","a11y"],["interaction design"],["visual design"],["typography"],["branding","brand identity"],["motion design"],["Canva"]]);
+d("Marketing & Sales",[["SEO","search engine optimization"],["SEM","search engine marketing"],["Google Analytics","ga4"],["Google Ads","adwords"],["Facebook Ads","meta ads"],["PPC","pay-per-click"],["content marketing"],["email marketing"],["marketing automation"],["HubSpot"],["Salesforce"],["Marketo"],["Mailchimp"],["copywriting"],["social media marketing","social media"],["influencer marketing"],["affiliate marketing"],["brand management"],["demand generation","demand gen"],["lead generation","lead gen"],["CRM"],["conversion rate optimization","cro"],["growth marketing"],["market research"],["competitive analysis"],["campaign management"],["cold calling","cold outreach"],["prospecting"],["account management"],["pipeline management"],["sales enablement"],["negotiation"],["quota","quota attainment"],["upselling","cross-selling","upsell","cross sell"],["customer success"],["customer retention"],["churn reduction","churn"],["B2B","b2b sales"],["B2C"],["SaaS","saas sales"],["outbound","outbound sales"],["inbound","inbound marketing"]]);
+d("Finance & Operations",[["financial modeling"],["financial analysis"],["forecasting"],["FP&A","fp and a"],["GAAP"],["IFRS"],["accounts payable"],["accounts receivable"],["reconciliation","reconciliations"],["QuickBooks"],["SAP"],["NetSuite"],["Oracle"],["ERP"],["payroll"],["tax","taxation"],["variance analysis"],["valuation"],["due diligence"],["M&A","mergers and acquisitions"],["procurement"],["supply chain","supply chain management"],["logistics"],["inventory management"],["vendor management"],["Lean","lean manufacturing"],["Six Sigma","6 sigma"],["process improvement","process optimization"],["operations management"],["quality assurance","qa"],["quality control"],["CPA"],["CFA"]]);
+d("Healthcare & Science",[["patient care"],["EMR","emr systems"],["EHR","epic","cerner"],["clinical research"],["clinical trials"],["FDA","fda regulations"],["GMP","good manufacturing practice"],["GLP"],["pharmacology"],["phlebotomy"],["triage"],["BLS"],["ACLS"],["case management"],["care coordination"],["medical terminology"],["HL7","fhir"],["laboratory","lab testing"],["regulatory affairs"],["biostatistics"]]);
+d("People & Support",[["recruiting","recruitment"],["talent acquisition"],["onboarding"],["performance management"],["employee relations"],["HRIS","workday"],["benefits administration"],["training and development","training & development"],["customer service"],["customer support"],["Zendesk"],["ticketing","ticketing systems"],["SLA","slas"],["call center"],["conflict resolution"],["coaching"],["mentoring","mentorship"]]);
+d("Certifications",[["AWS Certified","aws certification"],["Azure Certified"],["CISSP"],["CompTIA","security+","network+","a+"],["CEH"],["CSM","certified scrum master","certified scrummaster"],["PMP certification"],["Salesforce Certified"],["Google Certified"],["CPA license"],["Series 7"],["Series 63"],["RN","registered nurse"],["NP","nurse practitioner"],["CNA"],["ITIL"]]);
+d("Soft Skills",[["leadership"],["communication","communication skills"],["collaboration"],["problem-solving","problem solving"],["critical thinking"],["time management"],["adaptability"],["attention to detail","detail-oriented"],["teamwork"],["presentation","presentation skills","public speaking"],["analytical","analytical skills"],["organization","organizational skills"],["creativity"],["decision-making","decision making"],["strategic thinking"],["multitasking"],["initiative"],["work ethic"],["interpersonal skills"],["written communication"],["verbal communication"],["prioritization"],["self-motivated","self motivated"]]);
+
+const STOP = new Set(("a,an,the,and,or,but,if,then,else,for,to,of,in,on,at,by,with,as,is,are,was,were,be,been,being,have,has,had,do,does,did,will,would,should,could,can,may,might,must,shall,this,that,these,those,it,its,we,our,you,your,they,their,he,she,his,her,i,me,my,us,them,from,into,about,over,under,between,through,during,before,after,above,below,up,down,out,off,again,further,more,most,other,some,such,no,not,only,own,same,so,than,too,very,just,also,per,etc,eg,ie,within,across,including,include,includes,ability,able,strong,excellent,experience,experienced,years,year,work,working,works,worked,team,teams,role,position,job,candidate,candidates,ideal,preferred,required,requirements,requirement,qualifications,qualification,responsibilities,responsibility,skills,skill,knowledge,understanding,familiarity,familiar,proficiency,proficient,plus,bonus,degree,bachelor,bachelors,master,masters,phd,related,field,equivalent,minimum,least,new,using,use,used,uses,help,helping,support,supporting,ensure,ensuring,drive,driving,develop,developing,development,build,building,create,creating,manage,managing,management,lead,leading,day,days,opportunity,company,organization,environment,fast-paced,paced,looking,seeking,join,offer,offers,benefits,salary,location,remote,hybrid,onsite,full-time,part-time,duties,daily,weekly,monthly,annual,etc.,who,what,when,where,why,how,all,each,every,both,few,many,much,any,here,there,while,because,until,against,among,upon,without,along,around,like,well,make,makes,making,take,takes,taking,get,gets,getting,provide,provides,providing,deliver,delivers,delivering,maintain,maintains,maintaining,perform,performs,performing,assist,assists,assisting,senior,junior,entry,mid,level,manager,director,associate,intern,internship,staff,principal,head,chief,specialist,coordinator,analyst,assistant,officer,executive,hire,hiring,apply,application,applicants,applicant,about,things,great,good,best,better,successful,success,people,person,someone,somebody,strongly,highly,ideally").split(","));
+
+/* ====================== ENGINE ====================== */
+function escRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+function termRegex(t){
+  const b = "[^a-z0-9+#.]";
+  return new RegExp("(^|" + b + ")" + escRe(t.toLowerCase()) + "(s|es)?($|" + b + ")","i");
+}
+function textHas(textLc, term){ return termRegex(term).test(textLc); }
+
+function requiredZones(jd){
+  /* mark character ranges that fall under "requirements"-ish headers */
+  const lines = jd.split(/\n/); const zones = []; let inReq = false, pos = 0;
+  const reqHdr = /(requirement|qualification|must[- ]have|what you.ll need|what we.re looking for|skills)/i;
+  const otherHdr = /(benefit|perk|about (us|the)|compensation|salary|why join|nice[- ]to[- ]have|responsibilit|what you.ll do)/i;
+  for (const line of lines){
+    const isHdr = line.trim().length < 70 && /^[^a-z]*[A-Z]/.test(line.trim()) || /:\s*$/.test(line.trim());
+    if (isHdr && reqHdr.test(line)) inReq = true;
+    else if (isHdr && otherHdr.test(line) && !reqHdr.test(line)) inReq = false;
+    if (inReq) zones.push([pos, pos + line.length]);
+    pos += line.length + 1;
+  }
+  return zones;
+}
+function inZones(zones, idx){ return zones.some(z => idx >= z[0] && idx <= z[1]); }
+
+function countOccurrences(textLc, term){
+  const re = new RegExp("(^|[^a-z0-9+#.])" + escRe(term.toLowerCase()) + "(s|es)?($|[^a-z0-9+#.])","gi");
+  let m, n = 0, idxs = [];
+  while ((m = re.exec(textLc)) !== null){ n++; idxs.push(m.index); re.lastIndex = m.index + 1; }
+  return {n, idxs};
+}
+
+function extractKeywords(jd){
+  const jdLc = jd.toLowerCase();
+  const zones = requiredZones(jd);
+  const found = []; const claimed = new Set();
+
+  /* 1) dictionary pass (canonical + aliases) */
+  for (const entry of DICT){
+    const terms = [entry.name, ...entry.aliases];
+    let best = null;
+    for (const t of terms){
+      const {n, idxs} = countOccurrences(jdLc, t);
+      if (n > 0){ if (!best) best = {n:0, idxs:[]}; best.n += n; best.idxs.push(...idxs); }
+    }
+    if (best){
+      const req = best.idxs.some(i => inZones(zones, i));
+      found.push({kw: entry.name, terms, cat: entry.cat, freq: best.n, required: req,
+        weight: best.n + (req ? 3 : 0) + 2});
+      for (const t of terms) claimed.add(t.toLowerCase());
+    }
+  }
+
+  /* 2) generic pass: frequent unigrams/bigrams not already claimed */
+  const words = jdLc.replace(/[^a-z0-9+#.\- ]/g," ").split(/\s+/).filter(w => w.length > 2);
+  const counts = {};
+  for (let i = 0; i < words.length; i++){
+    const w = words[i].replace(/^[.\-]+|[.\-]+$/g,"");
+    if (w.length > 3 && !STOP.has(w) && !/^\d+$/.test(w)) counts[w] = (counts[w]||0)+1;
+    if (i < words.length - 1){
+      const w2 = words[i+1].replace(/^[.\-]+|[.\-]+$/g,"");
+      if (w.length > 2 && w2.length > 2 && !STOP.has(w) && !STOP.has(w2)){
+        const bg = w + " " + w2;
+        counts[bg] = (counts[bg]||0)+1;
+      }
+    }
+  }
+  const generic = Object.entries(counts)
+    .filter(([t,n]) => n >= 2 && !claimed.has(t) && ![...claimed].some(c => c.includes(t) || t.includes(c)))
+    .sort((a,b) => b[1]-a[1]).slice(0, 15);
+  for (const [t,n] of generic){
+    const {idxs} = countOccurrences(jdLc, t);
+    const req = idxs.some(i => inZones(zones, i));
+    const disp = t.split(" ").map(w => w.length > 3 ? w : w).join(" ");
+    found.push({kw: disp, terms:[t], cat: "Role-specific terms", freq: n, required: req, weight: n + (req ? 3 : 0)});
+  }
+
+  found.sort((a,b) => b.weight - a.weight);
+  return found;
+}
+
+function analyze(resume, jd){
+  const kws = extractKeywords(jd);
+  const resLc = resume.toLowerCase();
+  let wPresent = 0, wTotal = 0;
+  for (const k of kws){
+    k.present = k.terms.some(t => textHas(resLc, t));
+    wTotal += k.weight;
+    if (k.present) wPresent += k.weight;
+  }
+  const score = wTotal ? Math.round(100 * wPresent / wTotal) : 0;
+  return {score, kws,
+    present: kws.filter(k => k.present),
+    missing: kws.filter(k => !k.present)};
+}
+
+/* ====================== FORMAT AUDIT (PRO) ====================== */
+const BUZZ = ["hardworking","hard-working","team player","go-getter","go getter","synergy","results-driven","results driven","think outside the box","self-starter","self starter","dynamic","guru","ninja","rockstar","rock star","passionate","motivated individual","detail oriented individual","proven track record","people person"];
+const PASSIVE = ["responsible for","duties included","worked on","helped with","assisted with","tasked with","in charge of","participated in"];
+function audit(resume){
+  const lc = resume.toLowerCase();
+  const words = resume.trim().split(/\s+/).length;
+  const pronouns = (lc.match(/(^|[^a-z])(i|me|my|myself)([^a-z]|$)/g)||[]).length;
+  const buzz = BUZZ.filter(b => lc.includes(b));
+  const passive = PASSIVE.filter(p => lc.includes(p));
+  const lines = resume.split(/\n/).map(l => l.trim()).filter(l => l.length > 25);
+  const bullets = lines.filter(l => /^[-•*▪·]/.test(l) || /^[A-Z][a-z]+ed |^[A-Z][a-z]+ing /.test(l));
+  const pool = bullets.length >= 3 ? bullets : lines;
+  const quantified = pool.filter(l => /\d/.test(l)).length;
+  const quantPct = pool.length ? Math.round(100 * quantified / pool.length) : 0;
+  const hasEmail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i.test(resume);
+  const hasPhone = /(\+?\d[\d\s().-]{8,}\d)/.test(resume);
+  return {words, pronouns, buzz, passive, quantPct, hasEmail, hasPhone};
+}
+
+/* ====================== SUGGESTIONS (PRO) ====================== */
+const TPL = {
+  hard: [
+    kw => `Built and shipped [project or feature] using <b>${kw}</b>, improving [metric] by [X]%.`,
+    kw => `Led adoption of <b>${kw}</b> across [team/process], cutting [time/cost] by [X]%.`,
+    kw => `Designed and maintained [system/process] with <b>${kw}</b>, supporting [N] users/customers.`
+  ],
+  soft: [
+    kw => `Demonstrated <b>${kw}</b> by [specific situation], resulting in [concrete outcome].`,
+    kw => `Recognized for <b>${kw}</b>: [award, feedback, or measurable result].`
+  ]
+};
+function suggestions(missing){
+  const hard = missing.filter(k => k.cat !== "Soft Skills").slice(0,5);
+  const soft = missing.filter(k => k.cat === "Soft Skills").slice(0,2);
+  const out = [];
+  hard.forEach((k,i) => out.push({kw:k.kw, html: TPL.hard[i % TPL.hard.length](k.kw)}));
+  soft.forEach((k,i) => out.push({kw:k.kw, html: TPL.soft[i % TPL.soft.length](k.kw)}));
+  return out;
+}
+function summaryLine(present, missing){
+  const strengths = present.slice(0,3).map(k=>k.kw);
+  const adds = missing.filter(k=>k.cat!=="Soft Skills").slice(0,3).map(k=>k.kw);
+  if (!strengths.length && !adds.length) return "";
+  return `[Title] with [N]+ years of experience in ${[...strengths, ...adds].slice(0,5).join(", ")}. ` +
+    `Proven record of [top achievement with a number]. Seeking to [value you bring] at [Company].`;
+}
+
+/* ====================== RENDER ====================== */
+const $ = id => document.getElementById(id);
+function verdict(score){
+  if (score >= 80) return {t:"Strong match — you'll likely pass keyword screening.", c:"var(--good)"};
+  if (score >= 60) return {t:"Decent match — a few targeted edits could push you over the top.", c:"var(--warn)"};
+  if (score >= 40) return {t:"Weak match — this resume likely gets filtered before a human sees it.", c:"var(--warn)"};
+  return {t:"Poor match — as-is, an ATS will almost certainly screen this out.", c:"var(--bad)"};
+}
+function pill(present){ return present ? '<span class="pill good">In resume</span>' : '<span class="pill bad">Missing</span>'; }
+function reqPill(k){ return k.required ? ' <span class="pill warn">Required section</span>' : ''; }
+
+function renderSingle(res, resume){
+  const v = verdict(res.score);
+  let h = `
+  <div class="scorecard">
+    <div class="scorenum" style="color:${v.c}">${res.score}<span style="font-size:20px;color:var(--muted)">/100</span></div>
+    <div class="scorebarwrap">
+      <div class="scorebar"><i style="width:${res.score}%;background:${v.c}"></i></div>
+      <div class="scoreverdict" style="color:${v.c}">${v.t}</div>
+      <div class="scoresub">${res.present.length} of ${res.kws.length} weighted keywords from this posting appear in your resume.</div>
+    </div>
+  </div>`;
+
+  const missing = res.missing;
+  const shown = PRO ? missing : missing.slice(0,5);
+  const lockedCount = missing.length - shown.length;
+
+  h += `<h2>Missing keywords <span style="font-size:14px;color:var(--muted)">(add the ones that are true for you)</span></h2>
+  <div class="kwtablewrap"><table><thead><tr><th>Keyword</th><th>Category</th><th>Mentions in posting</th><th>Status</th></tr></thead><tbody>`;
+  for (const k of shown){
+    h += `<tr><td><b>${k.kw}</b>${reqPill(k)}</td><td>${k.cat}</td><td>${k.freq}×</td><td>${pill(false)}</td></tr>`;
+  }
+  if (!PRO && lockedCount > 0){
+    for (let i = 0; i < Math.min(lockedCount, 4); i++){
+      h += `<tr class="locked-row"><td class="kw">🔒 hidden keyword</td><td>—</td><td>—</td><td><span class="pill warn">Pro</span></td></tr>`;
+    }
+    h += `<tr><td colspan="4" style="text-align:center;padding:14px"><b>${lockedCount} more missing keyword${lockedCount>1?"s":""}</b> + bullet suggestions, formatting audit &amp; printable report in <a href="#pro" style="color:var(--accent);font-weight:700">KeywordFit Pro →</a></td></tr>`;
+  }
+  if (!missing.length) h += `<tr><td colspan="4">None — every keyword we found is already in your resume. 🎉</td></tr>`;
+  h += `</tbody></table></div>`;
+
+  if (PRO){
+    h += `<h2>Matched keywords</h2><div class="kwtablewrap"><table><thead><tr><th>Keyword</th><th>Category</th><th>Mentions in posting</th><th>Status</th></tr></thead><tbody>`;
+    for (const k of res.present) h += `<tr><td><b>${k.kw}</b>${reqPill(k)}</td><td>${k.cat}</td><td>${k.freq}×</td><td>${pill(true)}</td></tr>`;
+    if (!res.present.length) h += `<tr><td colspan="4">No matches found — start with the missing list above.</td></tr>`;
+    h += `</tbody></table></div>`;
+
+    const sug = suggestions(missing);
+    if (sug.length){
+      h += `<h2>Bullet suggestions</h2><p class="hint">Templates for your top missing skills — fill in the [brackets] with your real experience. Never claim skills you don't have.</p>`;
+      for (const s of sug) h += `<div class="suggest">${s.html}</div>`;
+      const sum = summaryLine(res.present, missing);
+      if (sum) h += `<h3>Professional summary template</h3><div class="suggest">${sum}</div>`;
+    }
+
+    const a = audit(resume);
+    h += `<h2>Formatting &amp; content audit</h2><div class="checkgrid">`;
+    h += chk("Length", a.words >= 350 && a.words <= 900, `${a.words} words`, a.words < 350 ? "Likely too short — aim for 400–800 words." : a.words > 900 ? "Likely too long — tighten to 400–800 words." : "In the ideal 400–800 word range.");
+    h += chk("Quantified results", a.quantPct >= 40, `${a.quantPct}% of bullets contain numbers`, a.quantPct >= 40 ? "Good — recruiters trust numbers." : "Add metrics: %, $, time saved, team size, volume.");
+    h += chk("First-person pronouns", a.pronouns === 0, `${a.pronouns} found`, a.pronouns === 0 ? "Clean — resumes should omit I/me/my." : "Remove I/me/my; start bullets with action verbs.");
+    h += chk("Buzzwords", a.buzz.length === 0, a.buzz.length ? a.buzz.slice(0,4).join(", ") : "none found", a.buzz.length ? "Replace clichés with specific achievements." : "No empty clichés detected.");
+    h += chk("Passive phrasing", a.passive.length === 0, a.passive.length ? a.passive.slice(0,3).join("; ") : "none found", a.passive.length ? "Swap for strong verbs: Led, Built, Drove, Cut." : "Strong, active phrasing.");
+    h += chk("Contact info", a.hasEmail, `email ${a.hasEmail?"✓":"✗"} · phone ${a.hasPhone?"✓":"✗"}`, (a.hasEmail && a.hasPhone) ? "Both found." : "Make sure email and phone are in plain text (not in a header image or table).");
+    h += `</div>`;
+    h += `<div class="actions" style="margin-top:22px"><button class="btn btn-primary" onclick="window.print()">Print / Save this report as PDF</button></div>`;
+  }
+  return h;
+}
+function chk(title, ok, val, note){
+  return `<div class="check"><span class="pill ${ok?"good":"warn"}">${ok?"PASS":"REVIEW"}</span><b>${title}</b>${val}<p>${note}</p></div>`;
+}
+
+function renderMulti(resume, jdsRaw){
+  const jds = jdsRaw.split(/\n\s*---+\s*\n/).map(s=>s.trim()).filter(Boolean).slice(0,10);
+  if (jds.length < 2) return `<p class="hint">Paste at least 2 job descriptions separated by a line containing only <code>---</code>.</p>`;
+  const resLc = resume.toLowerCase();
+  const agg = {};
+  jds.forEach((jd, i) => {
+    for (const k of extractKeywords(jd)){
+      const key = k.kw.toLowerCase();
+      if (!agg[key]) agg[key] = {kw:k.kw, cat:k.cat, terms:k.terms, jobs:new Set(), freq:0};
+      agg[key].jobs.add(i); agg[key].freq += k.freq;
+    }
+  });
+  const rows = Object.values(agg).map(k => ({...k, nJobs:k.jobs.size, present:k.terms.some(t=>textHas(resLc,t))}))
+    .sort((a,b) => b.nJobs - a.nJobs || b.freq - a.freq).slice(0,40);
+  const core = rows.filter(r => r.nJobs >= Math.max(2, Math.ceil(jds.length*0.5)));
+  const coreMissing = core.filter(r => !r.present);
+  let h = `<div class="scorecard"><div class="scorebarwrap">
+    <div class="scoreverdict">Analyzed ${jds.length} postings.</div>
+    <div class="scoresub"><b>${core.length}</b> core keywords appear in at least half of them — <b style="color:var(--bad)">${coreMissing.length} are missing from your resume</b>. These are your highest-leverage edits: fix them once, improve every application.</div>
+  </div></div>`;
+  h += `<h2>Keywords across all postings</h2><div class="kwtablewrap"><table><thead><tr><th>Keyword</th><th>Category</th><th>Postings</th><th>Status</th></tr></thead><tbody>`;
+  for (const r of rows) h += `<tr><td><b>${r.kw}</b></td><td>${r.cat}</td><td>${r.nJobs} of ${jds.length}</td><td>${pill(r.present)}</td></tr>`;
+  h += `</tbody></table></div>`;
+  h += `<div class="actions" style="margin-top:22px"><button class="btn btn-primary" onclick="window.print()">Print / Save this report as PDF</button></div>`;
+  return h;
+}
+
+/* ====================== WIRING ====================== */
+let mode = "single";
+if (PRO){
+  document.querySelectorAll("#proTabs .tab").forEach(t => t.addEventListener("click", () => {
+    document.querySelectorAll("#proTabs .tab").forEach(x=>x.classList.remove("active"));
+    t.classList.add("active");
+    mode = t.dataset.mode;
+    $("singleInputs").style.display = mode === "single" ? "" : "none";
+    $("multiInputs").style.display = mode === "multi" ? "" : "none";
+    $("results").style.display = "none";
+  }));
+}
+
+$("scanBtn").addEventListener("click", () => {
+  const out = $("results");
+  if (mode === "multi"){
+    const resume = $("resume2").value.trim() || $("resume").value.trim();
+    const jds = $("jds").value.trim();
+    if (!resume || !jds){ alert("Paste your resume and at least two job descriptions."); return; }
+    out.innerHTML = renderMulti(resume, jds);
+  } else {
+    const resume = $("resume").value.trim();
+    const jd = $("jd").value.trim();
+    if (!resume || !jd){ alert("Paste both your resume and the job description."); return; }
+    if (resume.length < 200){ alert("That resume looks too short — paste the full text."); return; }
+    out.innerHTML = renderSingle(analyze(resume, jd), resume);
+  }
+  out.style.display = "block";
+  out.scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+const SAMPLE_RESUME = `Jordan Rivera
+jordan.rivera@email.com · (555) 201-4477 · Austin, TX
+
+PROFESSIONAL SUMMARY
+Marketing analyst with 4 years of experience in campaign management, Google Analytics, and content marketing for B2B SaaS companies.
+
+EXPERIENCE
+Marketing Analyst — Brightline Software (2022–present)
+- Managed paid campaigns across Google Ads with a $40K monthly budget, improving ROAS by 32%
+- Built weekly performance dashboards in Excel and Google Analytics for leadership
+- Wrote and optimized 25+ landing pages, lifting conversion rate by 18%
+- Partnered with sales on lead generation programs that added 1,200 MQLs per quarter
+
+Marketing Coordinator — Vector Media (2020–2022)
+- Ran email marketing campaigns in Mailchimp to a list of 80,000 subscribers
+- Coordinated social media marketing calendar across LinkedIn and X
+- Supported market research and competitive analysis for product launches
+
+EDUCATION
+B.B.A. Marketing, University of Texas at Austin
+
+SKILLS
+Google Analytics, Google Ads, Excel, Mailchimp, SEO, content marketing, campaign management`;
+
+const SAMPLE_JD = `Senior Growth Marketing Manager — B2B SaaS
+
+About the role
+We're hiring a Senior Growth Marketing Manager to own demand generation and pipeline growth.
+
+What you'll do
+- Own paid acquisition across Google Ads and LinkedIn Ads
+- Build and optimize the demand generation engine with our SDR team
+- Run A/B testing across landing pages and email nurture flows
+- Report performance in HubSpot and Google Analytics
+
+Requirements
+- 5+ years in growth marketing or demand generation for B2B SaaS
+- Hands-on experience with HubSpot, Google Analytics, and marketing automation
+- Strong SEO and conversion rate optimization skills
+- Experience with A/B testing and data-driven experimentation
+- Excellent communication and stakeholder management skills
+
+Nice to have
+- SQL for marketing analytics
+- Experience with account-based marketing (ABM)`;
+
+$("sampleBtn").addEventListener("click", () => {
+  if (mode === "multi"){
+    $("resume2").value = SAMPLE_RESUME;
+    $("jds").value = SAMPLE_JD + "\n---\n" + SAMPLE_JD.replace("HubSpot","Marketo").replace("Senior Growth Marketing Manager","Demand Generation Manager");
+  } else {
+    $("resume").value = SAMPLE_RESUME;
+    $("jd").value = SAMPLE_JD;
+  }
+  $("scanBtn").click();
+});
+</script>
+</body>
+</html>
