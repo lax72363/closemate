@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Harborline Realty — Tampa Bay Homes (CloseMate Demo)</title>
+<style>
+  :root{--navy:#14313f;--gold:#c9a35a;--cream:#faf7f2}
+  *{margin:0;box-sizing:border-box}
+  body{font-family:Georgia,'Times New Roman',serif;color:var(--navy);background:var(--cream)}
+  .demo-band{background:#0f6f5c;color:#fff;text-align:center;padding:8px;font-family:Arial,sans-serif;font-size:13px}
+  .demo-band a{color:#ffe9b8}
+  header{display:flex;justify-content:space-between;align-items:center;padding:20px 6vw;background:#fff;border-bottom:1px solid #eee}
+  .logo{font-size:22px;letter-spacing:1px}
+  .logo b{color:var(--gold)}
+  nav a{font-family:Arial,sans-serif;font-size:13px;text-decoration:none;color:var(--navy);margin-left:26px;text-transform:uppercase;letter-spacing:1px}
+  .hero{padding:90px 6vw;background:linear-gradient(rgba(20,49,63,.72),rgba(20,49,63,.72)),url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="%2314313f"/><path d="M0 60 L20 40 L40 55 L60 30 L80 45 L80 80 L0 80 Z" fill="%231d4457"/></svg>');color:#fff;text-align:center}
+  .hero h1{font-size:42px;font-weight:400;margin-bottom:14px}
+  .hero p{font-family:Arial,sans-serif;font-size:16px;opacity:.9;max-width:520px;margin:0 auto 28px}
+  .cta{display:inline-block;background:var(--gold);color:#fff;padding:13px 34px;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase}
+  .listings{padding:60px 6vw}
+  .listings h2{text-align:center;font-weight:400;font-size:30px;margin-bottom:36px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px;max-width:1100px;margin:0 auto}
+  .card{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+  .ph{height:170px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Arial,sans-serif;font-size:13px;letter-spacing:1px}
+  .card .body{padding:18px}
+  .price{font-family:Arial,sans-serif;font-weight:700;font-size:20px}
+  .addr{font-family:Arial,sans-serif;font-size:13px;color:#67757e;margin:6px 0 10px}
+  .meta{font-family:Arial,sans-serif;font-size:12px;color:#8a949b}
+  .about{background:#fff;padding:60px 6vw;text-align:center}
+  .about p{max-width:640px;margin:14px auto;font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#4a5860}
+  footer{background:var(--navy);color:#b9c6cd;font-family:Arial,sans-serif;font-size:12px;text-align:center;padding:26px}
+</style>
+</head>
+<body>
+<div class="demo-band">▶ This is a <b>CloseMate</b> demo site. Click the chat bubble (bottom-right) and pretend you're a home buyer. &nbsp;<a href="/">What is CloseMate?</a></div>
+<header>
+  <div class="logo">HARBORLINE <b>REALTY</b></div>
+  <nav><a href="#">Listings</a><a href="#">Sell</a><a href="#">About</a><a href="#">Contact</a></nav>
+</header>
+<section class="hero">
+  <h1>Find Your Place on the Water</h1>
+  <p>Tampa Bay's boutique brokerage for coastal homes, first-time buyers, and smart sellers. Led by Sarah Bennett.</p>
+  <a class="cta" href="#">View Listings</a>
+</section>
+<section class="listings">
+  <h2>Featured Listings</h2>
+  <div class="grid">
+    <div class="card"><div class="ph" style="background:#1d4457">WATERFRONT · PHOTO</div><div class="body"><div class="price">$742,000</div><div class="addr">311 Bayshore Dr, St. Petersburg</div><div class="meta">4 bd · 3 ba · 2,410 sqft</div></div></div>
+    <div class="card"><div class="ph" style="background:#3a5a6b">BUNGALOW · PHOTO</div><div class="body"><div class="price">$429,900</div><div class="addr">98 Seminole Heights Ave, Tampa</div><div class="meta">3 bd · 2 ba · 1,540 sqft</div></div></div>
+    <div class="card"><div class="ph" style="background:#54707f">CONDO · PHOTO</div><div class="body"><div class="price">$315,000</div><div class="addr">1204 Gulf View Tower, Clearwater</div><div class="meta">2 bd · 2 ba · 1,120 sqft</div></div></div>
+  </div>
+</section>
+<section class="about">
+  <h2 style="font-weight:400">Why Buyers &amp; Sellers Choose Sarah</h2>
+  <p>With 11 years in the Tampa Bay market and over 300 closed transactions, Sarah Bennett combines deep local knowledge with white-glove service — now available to answer your questions 24 hours a day through her assistant in the corner of this page.</p>
+</section>
+<footer>© Harborline Realty (fictional demo brokerage) · Demo site for CloseMate</footer>
+<script src="/widget/closemate.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "closemate-server",
+  "version": "1.0.0",
+  "description": "CloseMate — AI lead-qualification chat for real estate agents",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "MOCK=1 node src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.113.0",
+    "express": "^5.2.1"
+  }
+}
